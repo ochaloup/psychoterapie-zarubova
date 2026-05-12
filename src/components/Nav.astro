@@ -1,0 +1,247 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '')
+
+const links = [
+  { href: `${base}/#vitejte`, label: 'Vítejte' },
+  { href: `${base}/#sluzby`, label: 'Co nabízím' },
+  { href: `${base}/pribeh`, label: 'Můj příběh' },
+  { href: `${base}/#cenik`, label: 'Ceník' },
+  { href: `${base}/#kontakt`, label: 'Kontakt' },
+]
+---
+
+<header class="nav" data-nav>
+  <div class="nav-inner container">
+    <a class="brand" href={`${base}/`}>
+      <span class="brand-name">Mgr. Barbora Zárubová</span>
+      <span class="brand-sub">Psychoterapeutka, psycholožka</span>
+    </a>
+
+    <nav aria-label="Hlavní navigace" class="primary-nav">
+      <ul>
+        {links.map((l) => (
+          <li><a href={l.href}>{l.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+
+    <button
+      class="nav-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="mobile-drawer"
+      aria-label="Otevřít menu"
+      data-nav-toggle
+    >
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+  </div>
+
+  <div class="mobile-drawer" id="mobile-drawer" data-drawer hidden>
+    <nav aria-label="Mobilní navigace">
+      <ul>
+        {links.map((l) => (
+          <li><a href={l.href} data-drawer-link>{l.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(247, 242, 234, 0.85);
+    backdrop-filter: saturate(140%) blur(12px);
+    -webkit-backdrop-filter: saturate(140%) blur(12px);
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--transition-base),
+      background var(--transition-base);
+  }
+
+  .nav.is-scrolled {
+    border-bottom-color: var(--color-line);
+    background: rgba(247, 242, 234, 0.95);
+  }
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding-block: 0.85rem;
+  }
+
+  .brand {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.15;
+    text-decoration: none;
+    color: var(--color-ink);
+  }
+
+  .brand:hover {
+    color: var(--color-sage-dark);
+    text-decoration: none;
+  }
+
+  .brand-name {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 500;
+    letter-spacing: 0.005em;
+  }
+
+  .brand-sub {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    color: var(--color-mute);
+    letter-spacing: 0.02em;
+  }
+
+  .primary-nav ul {
+    display: flex;
+    gap: var(--space-3);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .primary-nav a {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--color-ink);
+    text-decoration: none;
+    padding: 0.25rem 0;
+    border-bottom: 1px solid transparent;
+    transition: color var(--transition-base),
+      border-color var(--transition-base);
+  }
+
+  .primary-nav a:hover {
+    color: var(--color-terracotta-dark);
+    border-bottom-color: var(--color-terracotta);
+    text-decoration: none;
+  }
+
+  .nav-toggle {
+    display: none;
+    background: transparent;
+    border: 0;
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+    padding: 8px;
+    position: relative;
+  }
+
+  .nav-toggle .bar {
+    display: block;
+    width: 100%;
+    height: 1.5px;
+    margin: 4.5px 0;
+    background: var(--color-ink);
+    transition: transform var(--transition-base),
+      opacity var(--transition-base);
+    transform-origin: center;
+  }
+
+  .nav-toggle[aria-expanded='true'] .bar:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+  }
+
+  .nav-toggle[aria-expanded='true'] .bar:nth-child(2) {
+    opacity: 0;
+  }
+
+  .nav-toggle[aria-expanded='true'] .bar:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
+  .mobile-drawer {
+    background: var(--color-cream);
+    border-top: 1px solid var(--color-line);
+    padding: var(--space-3) var(--space-2);
+  }
+
+  .mobile-drawer ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .mobile-drawer a {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    color: var(--color-ink);
+    padding: 0.65rem var(--space-2);
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+  }
+
+  .mobile-drawer a:hover,
+  .mobile-drawer a:focus-visible {
+    background: var(--color-cream-deep);
+    color: var(--color-sage-dark);
+  }
+
+  @media (max-width: 880px) {
+    .primary-nav {
+      display: none;
+    }
+    .nav-toggle {
+      display: block;
+    }
+    .brand-sub {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const nav = document.querySelector<HTMLElement>('[data-nav]')
+  const toggle = document.querySelector<HTMLButtonElement>('[data-nav-toggle]')
+  const drawer = document.querySelector<HTMLElement>('[data-drawer]')
+
+  if (nav && toggle && drawer) {
+    const onScroll = () => {
+      if (window.scrollY > 16) nav.classList.add('is-scrolled')
+      else nav.classList.remove('is-scrolled')
+    }
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+
+    const closeDrawer = () => {
+      toggle.setAttribute('aria-expanded', 'false')
+      toggle.setAttribute('aria-label', 'Otevřít menu')
+      drawer.hidden = true
+    }
+    const openDrawer = () => {
+      toggle.setAttribute('aria-expanded', 'true')
+      toggle.setAttribute('aria-label', 'Zavřít menu')
+      drawer.hidden = false
+    }
+
+    toggle.addEventListener('click', () => {
+      const expanded = toggle.getAttribute('aria-expanded') === 'true'
+      if (expanded) closeDrawer()
+      else openDrawer()
+    })
+
+    drawer.querySelectorAll('[data-drawer-link]').forEach((link) => {
+      link.addEventListener('click', () => closeDrawer())
+    })
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeDrawer()
+    })
+  }
+</script>
