@@ -236,7 +236,7 @@ PR previews per branch (separate URL per PR) are skipped for v1 — GitHub Pages
 
 ```
 src/content/*.md  ──┐
-src/pages/*.astro ──┴── push/PR ──► GitHub Actions ──► dist/ ──► GitHub Pages CDN ──► https://barborazarubova.cz
+src/pages/*.astro ──┴── push/PR ──► GitHub Actions ──► dist/ ──► GitHub Pages CDN ──► https://psychoterapie-zarubova.cz
 ```
 
 ### 6.1. GitHub Actions workflow
@@ -301,7 +301,7 @@ GitHub UI setup (one-time, human-only):
 
 ### 6.2. Custom domain — DNS records
 
-Apex (`barborazarubova.cz`) as the canonical URL, `www` redirects to apex. Records to add at the registrar:
+Apex (`psychoterapie-zarubova.cz`) as the canonical URL, `www` redirects to apex. Records to add at the registrar:
 
 | Type  | Host | Value                    | TTL  |
 |-------|------|--------------------------|------|
@@ -315,14 +315,14 @@ Apex (`barborazarubova.cz`) as the canonical URL, `www` redirects to apex. Recor
 
 Remove any pre-existing conflicting A or CNAME records on `@` and `www` first.
 
-DNS propagation: minutes typically, up to 24 h occasionally. Verify with `dig +short barborazarubova.cz` and `dig +short www.barborazarubova.cz` before proceeding.
+DNS propagation: minutes typically, up to 24 h occasionally. Verify with `dig +short psychoterapie-zarubova.cz` and `dig +short www.psychoterapie-zarubova.cz` before proceeding.
 
 ### 6.3. CNAME file (required)
 
 `public/CNAME`, one line, **no trailing newline**:
 
 ```
-barborazarubova.cz
+psychoterapie-zarubova.cz
 ```
 
 Astro copies `public/` verbatim into `dist/`. This file tells GitHub Pages the canonical host on every deploy — without it, the custom-domain setting can revert.
@@ -347,14 +347,14 @@ export default defineConfig({
 import { defineConfig } from 'astro/config'
 
 export default defineConfig({
-  site: 'https://barborazarubova.cz',
+  site: 'https://psychoterapie-zarubova.cz',
   trailingSlash: 'ignore',
 })
 ```
 
 ### 6.5. GitHub UI — final domain setup
 
-- Settings → Pages → Custom domain → enter `barborazarubova.cz` → Save.
+- Settings → Pages → Custom domain → enter `psychoterapie-zarubova.cz` → Save.
 - Wait until "DNS check successful" appears (refresh every ~30 s).
 - Tick **Enforce HTTPS**. Greyed out for up to ~15 min while GitHub provisions the Let's Encrypt cert. Do not proceed until enforced.
 
@@ -379,7 +379,7 @@ visitor browser ──fetch POST──► Cloudflare Worker ──HTTPS──►
 
 ### 7.1. Resend domain verification (DO NOT SKIP)
 
-Resend dashboard → Domains → Add Domain → `barborazarubova.cz`. Resend gives ~3 DNS records (SPF, DKIM, optionally MX for replies). Add them at the registrar alongside the GitHub A records — they don't conflict. Wait for "Verified" badge.
+Resend dashboard → Domains → Add Domain → `psychoterapie-zarubova.cz`. Resend gives ~3 DNS records (SPF, DKIM, optionally MX for replies). Add them at the registrar alongside the GitHub A records — they don't conflict. Wait for "Verified" badge.
 
 Without this, Resend will only deliver email to the account's own signup email and will silently fail for any other recipient.
 
@@ -406,14 +406,14 @@ pnpm add -D wrangler typescript @cloudflare/workers-types
 ### 7.3. wrangler.toml
 
 ```toml
-name = "barborazarubova-contact"
+name = "psychoterapie-zarubova-contact"
 main = "src/index.ts"
 compatibility_date = "2025-01-01"
 
 [vars]
-ALLOWED_ORIGIN = "https://barborazarubova.cz"
+ALLOWED_ORIGIN = "https://psychoterapie-zarubova.cz"
 CONTACT_TO_EMAIL = "REPLACE_WITH_THERAPIST_INBOX"
-CONTACT_FROM_EMAIL = "kontakt@barborazarubova.cz"
+CONTACT_FROM_EMAIL = "kontakt@psychoterapie-zarubova.cz"
 
 [[kv_namespaces]]
 binding = "RL"
@@ -536,7 +536,7 @@ pnpm exec wrangler secret put RESEND_API_KEY
 pnpm exec wrangler deploy
 ```
 
-`wrangler deploy` prints the Worker URL (something like `https://barborazarubova-contact.<account-subdomain>.workers.dev`). Capture it — the site needs it as `PUBLIC_CONTACT_ENDPOINT`.
+`wrangler deploy` prints the Worker URL (something like `https://psychoterapie-zarubova-contact.<account-subdomain>.workers.dev`). Capture it — the site needs it as `PUBLIC_CONTACT_ENDPOINT`.
 
 ### 7.6. Wire form into Astro
 
@@ -566,7 +566,7 @@ Set the same variable in two places:
 ### 7.7. Rate limiting path choice (open question — §16, Q6)
 
 - **(A) Stay on workers.dev URL** with in-Worker KV rate limit (code above) — no DNS migration needed. **Default.**
-- **(B) Move DNS to Cloudflare** to gain CDN, DDoS protection, free per-zone rate-limit, and clean `api.barborazarubova.cz` URL — more setup, but the only way to get a branded API URL.
+- **(B) Move DNS to Cloudflare** to gain CDN, DDoS protection, free per-zone rate-limit, and clean `api.psychoterapie-zarubova.cz` URL — more setup, but the only way to get a branded API URL.
 
 ---
 
@@ -603,9 +603,9 @@ Portrait photo of Barbora is the single highest-impact asset. If she can get one
 | Where | Name | Value source | Sensitive? |
 |---|---|---|---|
 | Cloudflare Worker secret | `RESEND_API_KEY` | Resend dashboard | **Yes** |
-| Cloudflare Worker var | `ALLOWED_ORIGIN` | `https://barborazarubova.cz` | No |
+| Cloudflare Worker var | `ALLOWED_ORIGIN` | `https://psychoterapie-zarubova.cz` | No |
 | Cloudflare Worker var | `CONTACT_TO_EMAIL` | from Barbora | Mild |
-| Cloudflare Worker var | `CONTACT_FROM_EMAIL` | `kontakt@barborazarubova.cz` | No |
+| Cloudflare Worker var | `CONTACT_FROM_EMAIL` | `kontakt@psychoterapie-zarubova.cz` | No |
 | GitHub Actions variable | `PUBLIC_CONTACT_ENDPOINT` | workers.dev URL after deploy | No |
 | Local `.env` (gitignored) | `PUBLIC_CONTACT_ENDPOINT` | same | No |
 | `.env.example` (committed) | dummy values | — | — |
@@ -625,7 +625,7 @@ The worker (Claude) **cannot** do these. Confirm each item is done and paste the
 | 3 | Sign up at https://resend.com (free tier). Create an API key. | `RESEND_API_KEY` |
 | 4 | Sign up at https://cloudflare.com (free) — needed for the Worker even if DNS stays at the registrar. | account email |
 | 5 | Decide therapist's inbox address (where contact-form emails land). | `CONTACT_TO_EMAIL` |
-| 6 | Decide sender address on the custom domain (e.g. `kontakt@barborazarubova.cz`). Resend will need to verify this domain. | `CONTACT_FROM_EMAIL` |
+| 6 | Decide sender address on the custom domain (e.g. `kontakt@psychoterapie-zarubova.cz`). Resend will need to verify this domain. | `CONTACT_FROM_EMAIL` |
 
 Don't start Phase 2 until item 1 is confirmed. Don't start the form wiring (Phase 5) until items 3–6 are confirmed.
 
@@ -659,11 +659,11 @@ Estimated effort for first publishable version: ~1–2 focused days once §16 qu
 | Actions build green | GitHub Actions tab | green ✓ |
 | GH default URL serves | `curl -I https://<owner>.github.io/<repo>/` | 200 |
 | **Phase 2** | | |
-| Apex resolves to GH IPs | `dig +short barborazarubova.cz` | 4 lines, 185.199.108–111.153 |
-| www CNAME to GH | `dig +short www.barborazarubova.cz` | `<owner>.github.io.` |
-| Apex HTTPS works | `curl -I https://barborazarubova.cz` | 200, `server: GitHub.com` |
-| www → apex redirect | `curl -I https://www.barborazarubova.cz` | 301 → apex |
-| HTTP → HTTPS redirect | `curl -I http://barborazarubova.cz` | 301 → https |
+| Apex resolves to GH IPs | `dig +short psychoterapie-zarubova.cz` | 4 lines, 185.199.108–111.153 |
+| www CNAME to GH | `dig +short www.psychoterapie-zarubova.cz` | `<owner>.github.io.` |
+| Apex HTTPS works | `curl -I https://psychoterapie-zarubova.cz` | 200, `server: GitHub.com` |
+| www → apex redirect | `curl -I https://www.psychoterapie-zarubova.cz` | 301 → apex |
+| HTTP → HTTPS redirect | `curl -I http://psychoterapie-zarubova.cz` | 301 → https |
 | Cert valid in browser | open in browser | no mixed-content / cert warnings |
 | **Phase 3** | | |
 | Branch protection live | try direct push to main from clean clone | rejected |
@@ -684,7 +684,7 @@ Landmines learned the hard way. These are non-negotiable.
 
 - **Don't commit secrets.** `RESEND_API_KEY`, `.env` with real values, Cloudflare tokens — none of these go in git. `.env` must be gitignored. Only `PUBLIC_*` vars belong in client code.
 - **Don't set CORS to `*`** on the Worker. Pin to the site origin.
-- **Don't typo `ALLOWED_ORIGIN`.** It is the **site** URL (`https://barborazarubova.cz`), not the Worker URL. Common confusion.
+- **Don't typo `ALLOWED_ORIGIN`.** It is the **site** URL (`https://psychoterapie-zarubova.cz`), not the Worker URL. Common confusion.
 - **Don't push to main directly** once branch protection is on. Even fixups go through PRs.
 - **Don't use `actions/configure-pages@v...`.** `deploy-pages@v4` doesn't need it.
 - **Don't remove `public/CNAME`** "to clean things up". Removing it on a deploy can revert the Pages custom-domain setting.
@@ -717,9 +717,9 @@ Before implementation:
 1. **Aesthetic direction**: (A) refined organic minimalism, (B) editorial magazine, (C) photo-driven monochrome — which?
 2. **Service pages**: confirm — three sub-pages under `/sluzby/`, with summary cards on the home, ok?
 3. **Lesní terapie** — copy is missing ("to ještě doplním"). Ship with a "připravujeme" placeholder, ship without it, or wait?
-4. **Domain**: which registrar / which exact domain? (e.g. `barborazarubova.cz` at Forpsi?) Needed before Phase 2.
+4. **Domain**: which registrar / which exact domain? (e.g. `psychoterapie-zarubova.cz` at Forpsi?) Needed before Phase 2.
 5. **Email infrastructure**: ok with the Cloudflare-Worker + Resend approach? Requires Resend + Cloudflare signups, inbox decision, sender address decision (§11).
-6. **Rate limiting path**: (A) workers.dev URL with KV-backed in-Worker rate limit (simpler) vs (B) move DNS to Cloudflare to get clean `api.barborazarubova.cz` + per-zone rate limit. Default is (A). Confirm?
+6. **Rate limiting path**: (A) workers.dev URL with KV-backed in-Worker rate limit (simpler) vs (B) move DNS to Cloudflare to get clean `api.psychoterapie-zarubova.cz` + per-zone rate limit. Default is (A). Confirm?
 7. **Portrait photo**: does Barbora have a usable portrait, or should we plan around not having one initially?
 8. **Analytics**: yes (Plausible, ~150 CZK/month or self-hosted) or no?
 9. **Obchodní podmínky**: the PDF mentions this but has no content yet — wait for copy, or generate a draft she edits?
