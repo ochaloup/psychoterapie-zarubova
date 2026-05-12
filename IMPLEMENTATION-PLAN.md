@@ -397,6 +397,8 @@ Source 3–5 images from Unsplash matching the §1 aesthetic of `PLAN.md`. Searc
 
 Tracked so nothing gets lost. **None of these are v0.1.**
 
+> For the ordered, verifiable execution checklist when v1.0 is ready to ship, see **`V1.0-TODO.md`**. This section is the inventory; `V1.0-TODO.md` is the runbook.
+
 ### v1.0 — production launch
 - [ ] Domain cutover to `psychoterapie-zarubova.cz` (see §11)
 - [ ] Resend signup + sending-domain verification (SPF + DKIM records at registrar)
@@ -480,6 +482,7 @@ No remaining open questions. Proceed to §7 step 1 (scaffold Astro).
 
 - `PLAN.md` — architecture, decisions, deployment playbook.
 - `IMPLEMENTATION-PLAN.md` — this file. v0.1 execution detail.
+- `V1.0-TODO.md` — ordered, verifiable v1.0 launch runbook.
 - `TODO.md` — original brief.
 - `webovky.pdf` — content source.
 - `IMAGES.md` — created at step 13 of §7, tracks image provenance.
