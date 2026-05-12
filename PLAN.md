@@ -710,26 +710,29 @@ Always read the Actions log fully before reporting failure — most issues say e
 
 ---
 
-## 16. Open questions for you
+## 16. Resolved decisions
 
-Before implementation:
+All questions from the planning conversation are resolved. Summary:
 
-1. **Aesthetic direction**: (A) refined organic minimalism, (B) editorial magazine, (C) photo-driven monochrome — which?
-2. **Service pages**: confirm — three sub-pages under `/sluzby/`, with summary cards on the home, ok?
-3. **Lesní terapie** — copy is missing ("to ještě doplním"). Ship with a "připravujeme" placeholder, ship without it, or wait?
-4. **Domain**: which registrar / which exact domain? (e.g. `psychoterapie-zarubova.cz` at Forpsi?) Needed before Phase 2.
-5. **Email infrastructure**: ok with the Cloudflare-Worker + Resend approach? Requires Resend + Cloudflare signups, inbox decision, sender address decision (§11).
-6. **Rate limiting path**: (A) workers.dev URL with KV-backed in-Worker rate limit (simpler) vs (B) move DNS to Cloudflare to get clean `api.psychoterapie-zarubova.cz` + per-zone rate limit. Default is (A). Confirm?
-7. **Portrait photo**: does Barbora have a usable portrait, or should we plan around not having one initially?
-8. **Analytics**: yes (Plausible, ~150 CZK/month or self-hosted) or no?
-9. **Obchodní podmínky**: the PDF mentions this but has no content yet — wait for copy, or generate a draft she edits?
-10. **Editing access for Barbora**: should we set her up to edit content via GitHub directly (PR flow described in §5), or will edits go through you?
+1. **Aesthetic**: (A) refined organic minimalism — confirmed. Can revisit if review feedback says otherwise.
+2. **Service pages**: three sub-pages under `/sluzby/`, summary cards on the home — confirmed.
+3. **Lesní terapie**: ship with a "připravujeme" placeholder.
+4. **Domain**: `psychoterapie-zarubova.cz` — already in use by the existing site; cutover happens in v1.0 per `IMPLEMENTATION-PLAN.md` §11.
+5. **Email infrastructure**: Cloudflare Worker + Resend approach accepted; **setup deferred to v1.0** (no signups in v0.1).
+6. **Rate limiting**: (A) workers.dev URL with KV-backed in-Worker rate limit.
+7. **Portrait photo**: reuse `bara.jpg` from existing site for v0.1; replace later with a new photo.
+8. **Analytics**: nothing in v0.1. v1.0 plan: Cloudflare Web Analytics (free, cookieless, no consent banner).
+9. **Obchodní podmínky**: generate draft based on inspiration sites; Barbora reviews and edits later.
+10. **Barbora editing access**: deferred to v1.x — noted in `IMPLEMENTATION-PLAN.md` §10 ("set up Barbora with GitHub web-UI edit flow for markdown files").
+
+Detailed execution plan with all decisions applied: **`IMPLEMENTATION-PLAN.md`**.
 
 ---
 
 ## 17. Files in this repo
 
-- `PLAN.md` — this file. Design, architecture, and execution playbook.
-- `TODO.md` — the original brief from you.
+- `PLAN.md` — this file. Design, architecture, and deployment playbook.
+- `IMPLEMENTATION-PLAN.md` — v0.1 execution plan (scope, mock form approach, CI tests, file-by-file checklist, backlog).
+- `TODO.md` — the original brief.
 - `webovky.pdf` — content source from Barbora.
-- `IMAGES.md` — will be created when we start collecting images, tracks source/license per image.
+- `IMAGES.md` — will be created when image collection begins; tracks source / license / photographer per image.
