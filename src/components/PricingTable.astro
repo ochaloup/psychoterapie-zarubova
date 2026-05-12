@@ -1,0 +1,124 @@
+---
+const rows = [
+  {
+    typ: 'Individuální poradenství nebo psychoterapie',
+    misto: 'osobně nebo online',
+    delka: '60 minut',
+    cena: '1 100 Kč',
+  },
+  {
+    typ: 'Individuální poradenství nebo psychoterapie',
+    misto: 'osobně nebo online',
+    delka: '90 minut',
+    cena: '1 600 Kč',
+  },
+  {
+    typ: 'Individuální nebo lesní terapie',
+    misto: 'Dobříkov u Chocně',
+    delka: '60 minut',
+    cena: '1 000 Kč',
+  },
+  {
+    typ: 'Individuální nebo lesní terapie',
+    misto: 'Dobříkov u Chocně',
+    delka: '90 minut',
+    cena: '1 500 Kč',
+  },
+  {
+    typ: 'Individuální nebo lesní terapie',
+    misto: 'Dobříkov u Chocně',
+    delka: '2 hodiny',
+    cena: '2 000 Kč',
+  },
+]
+---
+
+<div class="pricing-wrap">
+  <table class="pricing-table">
+    <caption class="sr-only">Ceník konzultací</caption>
+    <thead>
+      <tr>
+        <th scope="col">Typ konzultace</th>
+        <th scope="col">Místo</th>
+        <th scope="col">Délka</th>
+        <th scope="col" class="cena">Cena</th>
+      </tr>
+    </thead>
+    <tbody>
+      {rows.map((row) => (
+        <tr>
+          <td>{row.typ}</td>
+          <td class="misto">{row.misto}</td>
+          <td class="delka">{row.delka}</td>
+          <td class="cena">{row.cena}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .pricing-wrap {
+    overflow-x: auto;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-line);
+    background: var(--color-cream);
+  }
+
+  .pricing-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.97rem;
+  }
+
+  .pricing-table th,
+  .pricing-table td {
+    text-align: left;
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .pricing-table thead th {
+    background: var(--color-cream-deep);
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-mute);
+  }
+
+  .pricing-table tbody tr:last-child td {
+    border-bottom: 0;
+  }
+
+  .pricing-table .delka {
+    color: var(--color-mute);
+    white-space: nowrap;
+  }
+
+  .pricing-table .misto {
+    color: var(--color-mute);
+    font-style: italic;
+    font-family: var(--font-display);
+    font-size: 1rem;
+  }
+
+  .pricing-table .cena {
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    white-space: nowrap;
+    color: var(--color-sage-dark);
+    text-align: right;
+  }
+
+  @media (max-width: 640px) {
+    .pricing-table {
+      font-size: 0.9rem;
+    }
+    .pricing-table th,
+    .pricing-table td {
+      padding: 0.7rem 0.65rem;
+    }
+  }
+</style>

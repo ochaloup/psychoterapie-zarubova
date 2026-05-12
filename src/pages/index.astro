@@ -1,17 +1,313 @@
 ---
+import { getCollection } from 'astro:content'
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Hero from '../components/Hero.astro'
+import SectionHeading from '../components/SectionHeading.astro'
+import ServiceCard from '../components/ServiceCard.astro'
+import PricingTable from '../components/PricingTable.astro'
+import ContactForm from '../components/ContactForm.astro'
 
+const base = import.meta.env.BASE_URL.replace(/\/$/, '')
+
+const services = (await getCollection('sluzby')).sort(
+  (a, b) => a.data.order - b.data.order,
+)
+
+const meetingPlaces = [
+  { label: 'Osobně v Pardubicích', detail: 'v Centru Živa, Kostelní 94' },
+  { label: 'Online', detail: 'přes Google Meet' },
+  {
+    label: 'Walk & Talk',
+    detail: 'v parku a přilehlé přírodě v Pardubicích',
+  },
+  {
+    label: 'V Dobříkově u Chocně',
+    detail: 'individuální terapie i lesní terapie',
+  },
+]
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout
+  title="Mgr. Barbora Zárubová — Psychoterapie a psychologické poradenství"
+  description="Psychoterapie a psychologické poradenství pro ženy, rodiče a děti. Klidný a bezpečný prostor v Pardubicích, online, Walk & Talk a lesní terapie v Dobříkově u Chocně."
+>
+  <Hero />
+
+  <section class="section" id="sluzby">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Co nabízím"
+        title="Tři cesty, jak spolu můžeme pracovat"
+        lede="Každá služba má svůj rytmus a důraz. Vyberte tu, která vás teď oslovuje — nebo si u prvního setkání domluvíme to, co vám bude nejvíc dávat smysl."
+        align="center"
+      />
+
+      <div class="services-grid">
+        {services.map((service) => (
+          <ServiceCard
+            title={service.data.title}
+            tagline={service.data.tagline}
+            summary={service.data.summary}
+            href={`${base}/sluzby/${service.id}`}
+            icon={service.data.icon}
+            available={service.data.available}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt" id="setkani">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Můžeme se setkat"
+        title="Kde a jak se vidíme"
+        align="center"
+      />
+
+      <ul class="meeting-places">
+        {meetingPlaces.map((place) => (
+          <li>
+            <strong>{place.label}</strong>
+            <span>{place.detail}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="cenik">
+    <div class="container container-narrow">
+      <SectionHeading
+        eyebrow="Ceník a podmínky"
+        title="Ceník konzultací"
+        lede="Délka a forma setkání záleží na tom, co potřebujete. Při objednání si nemusíte vybírat předem — domluvíme se na prvním setkání."
+      />
+
+      <PricingTable />
+
+      <div class="terms-grid">
+        <div>
+          <h3>Způsoby platby</h3>
+          <ul>
+            <li>
+              <strong>V hotovosti</strong> — platba přímo na místě po skončení sezení.
+            </li>
+            <li>
+              <strong>Převodem na účet</strong> — platba předem bankovním převodem.
+            </li>
+            <li>
+              <strong>QR kódem</strong> — rychlá platba QR kódem na konci sezení.
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>Storno podmínky</h3>
+          <p>
+            <strong>Rezervace termínu je závazná.</strong> Pokud potřebujete domluvený termín zrušit, prosím o informaci nejpozději 24 hodin předem. Při zrušení termínu méně než 24 hodin předem hradí klient storno poplatek ve výši 50 % ceny.
+          </p>
+        </div>
+
+        <div>
+          <h3>Příspěvky od pojišťoven</h3>
+          <p>
+            Psychoterapii poskytuji mimo oblast zdravotnictví. V rámci programu <strong>Péče o duševní zdraví</strong> lze čerpat <strong>příspěvek na psychoterapii</strong> od většiny zdravotních pojišťoven. Informace o výši příspěvku a podmínkách čerpání získáte u své zdravotní pojišťovny.
+          </p>
+          <p class="footnote">
+            Neposkytuji zdravotní služby dle zákona č. 372/2011 Sb. Nejsem lékař a neprovádím lékařskou diagnostiku ani léčbu.
+          </p>
+        </div>
+
+        <div>
+          <h3>Ochrana osobních údajů</h3>
+          <p>
+            Veškeré mnou evidované informace se řídí zákonem č. 101/2000 Sb. o ochraně osobních údajů a GDPR (Nařízení Evropského parlamentu a Rady EU 2016/679). Zpracovávám kontaktní údaje klientů v rozsahu jméno, e‑mail a telefonní číslo, a to pouze za účelem poskytování služeb dle uzavřeného kontraktu.
+          </p>
+          <p>
+            Při konzultacích si píšu poznámky, které slouží pro mou profesionální přípravu a kvalitní vedení konzultací. Všechny získané informace považuji za přísně důvěrné a nezpřístupňuji je žádné třetí osobě. Moje práce je pravidelně supervidována — klient v supervizi vždy zůstává anonymní.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--contact" id="kontakt">
+    <div class="container contact-grid">
+      <div>
+        <SectionHeading
+          eyebrow="Kontakt"
+          title="Jak se objednat"
+          lede="Objednat se můžete jednoduše přes kontaktní formulář, telefonicky nebo e‑mailem. Ozvu se vám nazpět do 2 pracovních dnů."
+        />
+
+        <ul class="contact-list">
+          <li>
+            <span class="contact-label">E‑mail</span>
+            <a href="mailto:barbora.zarubova@seznam.cz">
+              barbora.zarubova@seznam.cz
+            </a>
+          </li>
+          <li>
+            <span class="contact-label">Telefon</span>
+            <a href="tel:+420608879165">+420 608 879 165</a>
+          </li>
+          <li>
+            <span class="contact-label">Kde mě najdete</span>
+            <span>
+              Centrum Živa<br />
+              Kostelní 94, Pardubice
+            </span>
+          </li>
+        </ul>
+
+        <p class="response-time">
+          <em>Ozvu se vám nazpět do 2 pracovních dnů.</em>
+        </p>
+      </div>
+
+      <div>
+        <ContactForm />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--space-3);
+    margin-top: var(--space-4);
+  }
+
+  .section--alt {
+    background: var(--color-cream-deep);
+  }
+
+  .meeting-places {
+    list-style: none;
+    padding: 0;
+    margin: var(--space-3) auto 0;
+    max-width: var(--measure-wide);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-3);
+  }
+
+  .meeting-places li {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: var(--space-3);
+    background: var(--color-cream);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-line);
+    margin: 0;
+  }
+
+  .meeting-places strong {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    color: var(--color-sage-dark);
+    font-weight: 500;
+  }
+
+  .meeting-places span {
+    color: var(--color-mute);
+    font-size: 0.95rem;
+  }
+
+  .terms-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-4);
+    margin-top: var(--space-5);
+  }
+
+  .terms-grid h3 {
+    color: var(--color-sage-dark);
+    margin-bottom: var(--space-2);
+  }
+
+  .terms-grid p {
+    max-width: none;
+    margin-bottom: var(--space-2);
+  }
+
+  .terms-grid .footnote {
+    font-size: 0.88rem;
+    color: var(--color-mute);
+    margin-top: var(--space-2);
+  }
+
+  .terms-grid ul {
+    max-width: none;
+  }
+
+  .section--contact {
+    background: linear-gradient(
+      180deg,
+      var(--color-cream) 0%,
+      var(--color-cream-deep) 100%
+    );
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.25fr;
+    gap: var(--space-5);
+    align-items: start;
+  }
+
+  .contact-list {
+    list-style: none;
+    padding: 0;
+    margin: var(--space-3) 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .contact-list li {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin: 0;
+  }
+
+  .contact-label {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--color-mute);
+  }
+
+  .contact-list a {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    color: var(--color-sage-dark);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+  }
+
+  .contact-list a:hover {
+    color: var(--color-terracotta-dark);
+    border-bottom-color: var(--color-terracotta);
+  }
+
+  .response-time {
+    margin-top: var(--space-3);
+    color: var(--color-mute);
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+  }
+
+  @media (max-width: 880px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+    }
+  }
+</style>

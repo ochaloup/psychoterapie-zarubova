@@ -1,0 +1,266 @@
+---
+import { getEntry, render } from 'astro:content'
+import BaseLayout from '../layouts/BaseLayout.astro'
+import SectionHeading from '../components/SectionHeading.astro'
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '')
+
+const entry = await getEntry('pribeh', 'index')
+if (!entry) throw new Error('Missing pribeh/index content')
+const { Content } = await render(entry)
+
+const education = [
+  {
+    title: 'Mgr. psychologie',
+    institution: 'Fakulta sociálních studií Masarykovy univerzity',
+    years: '2006–2012',
+  },
+  {
+    title: 'Komplexní akreditovaný výcvik integrace v psychoterapii',
+    institution: '1026 hodin',
+    years: '2010–2022',
+  },
+  {
+    title: 'Facilitátor kruhu a transparentní kruhové komunikace',
+    institution: 'Síla duše',
+    years: '2024',
+  },
+  {
+    title: 'Výcvik průvodkyně ženskými kruhy',
+    institution: 'Alchymie ženy',
+    years: '2019–2020',
+  },
+]
+
+const experience = [
+  { title: 'Školní psycholog', years: '2012–současnost' },
+  { title: 'Soukromá psychoterapeutická praxe', years: '2015–současnost' },
+  {
+    title:
+      'Průvodkyně ženskými kruhy, seberozvojovými kurzy a přechodovými ženskými rituály',
+    years: '2019–současnost',
+  },
+  {
+    title: 'Programy pro matky a dcery, pro matky a syny',
+    years: '2023–současnost',
+  },
+  { title: 'Lektorka prožitkového tance', years: '2022–současnost' },
+]
+---
+
+<BaseLayout
+  title="Můj příběh"
+  description="Mgr. Barbora Zárubová — psycholožka, psychoterapeutka, průvodkyně ženskými kruhy. Vzdělání, výcviky a profesní zkušenosti."
+>
+  <article class="pribeh">
+    <div class="container-narrow">
+      <a class="back-link" href={`${base}/`}>
+        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path
+            d="M13 8 H 3 M 7 4 L 3 8 L 7 12"
+            stroke="currentColor"
+            stroke-width="1.4"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        Zpět na úvod
+      </a>
+
+      <SectionHeading
+        eyebrow="O mně"
+        title="Můj příběh"
+        lede="Cesta, která mě přivedla k psychoterapii, doprovázení žen a podpoře rodičů a dětí."
+        as="h1"
+      />
+
+      <div class="prose">
+        <Content />
+      </div>
+
+      <svg
+        class="divider-leaf"
+        viewBox="0 0 120 24"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M2 12 H 50"
+          stroke="currentColor"
+          stroke-width="1"
+          stroke-linecap="round"
+        />
+        <path
+          d="M70 12 H 118"
+          stroke="currentColor"
+          stroke-width="1"
+          stroke-linecap="round"
+        />
+        <circle cx="60" cy="12" r="4" stroke="currentColor" stroke-width="1" />
+      </svg>
+
+      <section class="cv-block">
+        <h2>Vzdělání a výcvik</h2>
+        <dl class="cv-list">
+          {education.map((item) => (
+            <div class="cv-item">
+              <dt>
+                <strong>{item.title}</strong>
+                <span class="cv-institution">{item.institution}</span>
+              </dt>
+              <dd>{item.years}</dd>
+            </div>
+          ))}
+        </dl>
+
+        <h3>Další kurzy a vzdělávání (výběr)</h3>
+        <p class="cv-courses">
+          Kurz <strong>Mindfulness</strong> (Mgr. Katarzyna Korda Jedzoková),
+          <strong>Sandtray</strong>: práce v psychoterapeutickém pískovišti (Mgr. Veronika Galusová),
+          <strong>Mentální jazyky</strong>: typologie osobnosti (MgA. Alexandra Polarczyk),
+          <strong>Psychosomatická konference Dítě 2025 Moc a nemoc</strong> (Mgr. Soňa Procházková, DiS.),
+          kurzy psychoterapeutické práce s emočním rozrušením, úzkostí, krizová intervence.
+        </p>
+      </section>
+
+      <section class="cv-block">
+        <h2>Profesní zkušenosti</h2>
+        <dl class="cv-list">
+          {experience.map((item) => (
+            <div class="cv-item">
+              <dt><strong>{item.title}</strong></dt>
+              <dd>{item.years}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+
+      <div class="service-cta-block">
+        <p>Chcete se domluvit na termínu nebo se na něco zeptat?</p>
+        <a class="btn btn-primary" href={`${base}/#kontakt`}>Kontaktujte mě</a>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .pribeh {
+    padding-block: var(--space-5);
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: var(--color-mute);
+    text-decoration: none;
+    margin-bottom: var(--space-3);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .back-link svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .back-link:hover {
+    color: var(--color-terracotta-dark);
+  }
+
+  .cv-block {
+    margin-top: var(--space-5);
+  }
+
+  .cv-block h2 {
+    color: var(--color-sage-dark);
+    margin-bottom: var(--space-3);
+  }
+
+  .cv-block h3 {
+    margin-top: var(--space-4);
+    color: var(--color-sage-dark);
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.25rem;
+  }
+
+  .cv-list {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .cv-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--space-2);
+    padding-block: 0.5rem;
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .cv-item:last-child {
+    border-bottom: 0;
+  }
+
+  .cv-item dt {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .cv-item dt strong {
+    color: var(--color-ink);
+    font-weight: 600;
+  }
+
+  .cv-institution {
+    color: var(--color-mute);
+    font-size: 0.92rem;
+  }
+
+  .cv-item dd {
+    margin: 0;
+    color: var(--color-mute);
+    font-variant-numeric: tabular-nums;
+    font-size: 0.95rem;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .cv-courses {
+    color: var(--color-ink);
+    line-height: 1.7;
+  }
+
+  .service-cta-block {
+    margin-top: var(--space-5);
+    padding: var(--space-4);
+    background: var(--color-cream-deep);
+    border-radius: var(--radius-md);
+    text-align: center;
+  }
+
+  .service-cta-block p {
+    max-width: none;
+    margin: 0 0 var(--space-2);
+    color: var(--color-sage-dark);
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.15rem;
+  }
+
+  @media (max-width: 540px) {
+    .cv-item {
+      grid-template-columns: 1fr;
+    }
+    .cv-item dd {
+      text-align: left;
+    }
+  }
+</style>

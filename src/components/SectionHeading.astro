@@ -1,0 +1,41 @@
+---
+type Props = {
+  eyebrow?: string
+  title: string
+  lede?: string
+  align?: 'left' | 'center'
+  as?: 'h1' | 'h2' | 'h3'
+  id?: string
+}
+
+const { eyebrow, title, lede, align = 'left', as = 'h2', id } = Astro.props
+const Tag = as
+---
+
+<header class={`section-heading section-heading--${align}`} id={id}>
+  {eyebrow && <span class="eyebrow">{eyebrow}</span>}
+  <Tag class="section-heading-title">{title}</Tag>
+  {lede && <p class="lede">{lede}</p>}
+</header>
+
+<style>
+  .section-heading {
+    margin-bottom: var(--space-4);
+  }
+
+  .section-heading--center {
+    text-align: center;
+  }
+
+  .section-heading--center .lede {
+    margin-inline: auto;
+  }
+
+  .section-heading-title {
+    margin-bottom: var(--space-2);
+  }
+
+  .section-heading .lede {
+    margin-bottom: 0;
+  }
+</style>

@@ -1,0 +1,133 @@
+---
+import SectionHeading from './SectionHeading.astro'
+
+interface Props {
+  title: string
+  tagline: string
+  available: boolean
+}
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '')
+const { title, tagline, available } = Astro.props
+---
+
+<article class="service-detail">
+  <div class="container-narrow">
+    <a class="back-link" href={`${base}/#sluzby`}>
+      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <path
+          d="M13 8 H 3 M 7 4 L 3 8 L 7 12"
+          stroke="currentColor"
+          stroke-width="1.4"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+      Zpět na úvod
+    </a>
+
+    <SectionHeading
+      eyebrow="Co nabízím"
+      title={title}
+      lede={tagline}
+      as="h1"
+    />
+
+    {!available && (
+      <div class="upcoming-note">
+        <strong>Připravujeme.</strong> Tato služba je k dispozici, obsah stránky doplním v nejbližší době.
+      </div>
+    )}
+
+    <div class="prose">
+      <slot />
+    </div>
+
+    <div class="service-cta-block">
+      <p>Chcete se domluvit na termínu nebo se na něco zeptat?</p>
+      <a class="btn btn-primary" href={`${base}/#kontakt`}>Kontaktujte mě</a>
+    </div>
+  </div>
+</article>
+
+<style is:global>
+  .service-detail .prose h2 {
+    margin-top: var(--space-5);
+    color: var(--color-sage-dark);
+    font-weight: 500;
+  }
+
+  .service-detail .prose h2:first-of-type {
+    margin-top: var(--space-4);
+  }
+
+  .service-detail .prose blockquote {
+    font-size: 1.2rem;
+    border-left-color: var(--color-terracotta);
+    color: var(--color-sage-dark);
+  }
+
+  .service-detail .prose strong {
+    color: var(--color-sage-dark);
+  }
+</style>
+
+<style>
+  .service-detail {
+    padding-block: var(--space-5);
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: var(--color-mute);
+    text-decoration: none;
+    margin-bottom: var(--space-3);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .back-link svg {
+    width: 14px;
+    height: 14px;
+    transition: transform var(--transition-base);
+  }
+
+  .back-link:hover {
+    color: var(--color-terracotta-dark);
+  }
+
+  .back-link:hover svg {
+    transform: translateX(-3px);
+  }
+
+  .upcoming-note {
+    background: var(--color-notice-bg);
+    color: var(--color-notice-text);
+    padding: var(--space-3);
+    border-radius: var(--radius-md);
+    border-left: 3px solid var(--color-terracotta);
+    margin-bottom: var(--space-4);
+    font-size: 0.95rem;
+  }
+
+  .service-cta-block {
+    margin-top: var(--space-5);
+    padding: var(--space-4);
+    background: var(--color-cream-deep);
+    border-radius: var(--radius-md);
+    text-align: center;
+  }
+
+  .service-cta-block p {
+    max-width: none;
+    margin: 0 0 var(--space-2);
+    color: var(--color-sage-dark);
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.15rem;
+  }
+</style>

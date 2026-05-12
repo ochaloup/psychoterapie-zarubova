@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '')
+---
+
+<BaseLayout title="Stránka nenalezena" description="Stránka, kterou hledáte, na tomto webu není.">
+  <section class="notfound">
+    <div class="container-narrow">
+      <span class="eyebrow">404 — Stránka nenalezena</span>
+      <h1>Tady to není.</h1>
+      <p class="lede">
+        Stránka, kterou hledáte, na tomto webu nejspíš není anebo se přesunula. Vraťte se prosím na úvod a zkuste to znovu.
+      </p>
+      <a class="btn btn-primary" href={`${base}/`}>Zpět na úvod</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .notfound {
+    padding-block: var(--space-6) var(--space-7);
+    text-align: center;
+  }
+
+  .notfound h1 {
+    margin-top: var(--space-2);
+    margin-bottom: var(--space-3);
+  }
+
+  .notfound .lede {
+    margin-inline: auto;
+    margin-bottom: var(--space-4);
+  }
+</style>

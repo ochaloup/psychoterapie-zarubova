@@ -1,0 +1,22 @@
+---
+import { getEntry, render } from 'astro:content'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import ServiceDetail from '../../components/ServiceDetail.astro'
+
+const entry = await getEntry('sluzby', 'lesni-terapie')
+if (!entry) throw new Error('Missing sluzby/lesni-terapie content')
+const { Content } = await render(entry)
+---
+
+<BaseLayout
+  title={`${entry.data.title} — ${entry.data.tagline}`}
+  description={entry.data.summary}
+>
+  <ServiceDetail
+    title={entry.data.title}
+    tagline={entry.data.tagline}
+    available={entry.data.available}
+  >
+    <Content />
+  </ServiceDetail>
+</BaseLayout>

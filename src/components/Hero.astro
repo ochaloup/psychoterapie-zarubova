@@ -1,0 +1,240 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '')
+---
+
+<section class="hero" id="vitejte">
+  <div class="container hero-grid">
+    <div class="hero-text fade-in">
+      <span class="eyebrow">Mgr. Barbora Zárubová · Psychoterapeutka, psycholožka</span>
+      <h1>
+        Vítejte na cestě do svého nitra,<br />
+        <span class="hero-emphasis">které touží, abyste mu naslouchali.</span>
+      </h1>
+
+      <p class="lede">
+        Klidný a bezpečný prostor pro ženy, rodiče i děti.
+        Setkat se můžeme osobně v&nbsp;Pardubicích, online,
+        na procházce nebo v&nbsp;přírodě u&nbsp;Chocně.
+      </p>
+
+      <ul class="hero-offer">
+        <li>
+          <strong>Klidný a bezpečný prostor</strong>, ve kterém se můžete navrátit zpátky k&nbsp;sobě, pokud jste se na cestě životem ztratily.
+        </li>
+        <li>
+          <strong>Pochopení</strong>, pokud si přejete mluvit o&nbsp;tom, co cítíte a co prožíváte.
+        </li>
+        <li>
+          <strong>Uvolnění</strong>, když cítíte napětí a&nbsp;dlouhodobý stres.
+        </li>
+        <li>
+          <strong>Podporu a zorientování</strong> v&nbsp;tíživé situaci.
+        </li>
+        <li>
+          <strong>Otevření se novému začátku</strong>, pokud cítíte, že je čas, abyste šly dál oproštěni od toho, co už vám neslouží.
+        </li>
+      </ul>
+
+      <p class="hero-aside">
+        Každé setkání je jedinečné. V rytmu, jaký potřebujete. V&nbsp;respektu k&nbsp;vašemu prožívání.
+      </p>
+
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="#kontakt">Objednat konzultaci</a>
+        <a class="btn btn-ghost" href="#sluzby">Co nabízím</a>
+      </div>
+    </div>
+
+    <div class="hero-portrait fade-in">
+      <div class="portrait-frame">
+        <img
+          src={`${base}/images/portrait.jpg`}
+          alt="Portrét Mgr. Barbory Zárubové"
+          width="640"
+          height="800"
+          loading="eager"
+          decoding="async"
+        />
+      </div>
+      <span class="portrait-caption">Mgr. Barbora Zárubová</span>
+    </div>
+  </div>
+
+  <svg
+    class="hero-leaf"
+    viewBox="0 0 120 60"
+    fill="none"
+    aria-hidden="true"
+  >
+    <path
+      d="M2 30 Q 30 4 60 30 T 118 30"
+      stroke="currentColor"
+      stroke-width="1"
+      stroke-linecap="round"
+    />
+    <path
+      d="M58 30 Q 60 18 64 14"
+      stroke="currentColor"
+      stroke-width="1"
+      stroke-linecap="round"
+    />
+  </svg>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    padding-block: clamp(3rem, 6vw, 6rem) clamp(2.5rem, 5vw, 5rem);
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(
+        circle at 80% 20%,
+        rgba(185, 111, 76, 0.08),
+        transparent 55%
+      ),
+      radial-gradient(
+        circle at 10% 85%,
+        rgba(92, 107, 78, 0.07),
+        transparent 60%
+      );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .hero-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: var(--space-5);
+    align-items: center;
+  }
+
+  .hero-text h1 {
+    margin-block: var(--space-2) var(--space-3);
+  }
+
+  .hero-emphasis {
+    font-style: italic;
+    color: var(--color-sage);
+    font-weight: 400;
+  }
+
+  .hero-offer {
+    list-style: none;
+    padding: 0;
+    margin: var(--space-3) 0 var(--space-4);
+    display: grid;
+    gap: 0.55rem;
+    border-left: 1px solid var(--color-sage-soft);
+    padding-left: var(--space-3);
+    max-width: var(--measure);
+  }
+
+  .hero-offer li {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--color-ink);
+  }
+
+  .hero-offer strong {
+    color: var(--color-sage-dark);
+    font-weight: 600;
+  }
+
+  .hero-aside {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--color-mute);
+    max-width: var(--measure-narrow);
+  }
+
+  .hero-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: var(--space-3);
+  }
+
+  .hero-portrait {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-self: end;
+  }
+
+  .portrait-frame {
+    position: relative;
+    width: min(100%, 380px);
+    aspect-ratio: 4 / 5;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    background: var(--color-cream-deep);
+  }
+
+  .portrait-frame::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 1px rgba(42, 42, 40, 0.06);
+    pointer-events: none;
+  }
+
+  .portrait-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.2s ease-out;
+  }
+
+  .hero-portrait:hover .portrait-frame img {
+    transform: scale(1.02);
+  }
+
+  .portrait-caption {
+    margin-top: var(--space-2);
+    font-family: var(--font-display);
+    font-style: italic;
+    color: var(--color-mute);
+    font-size: 0.95rem;
+  }
+
+  .hero-leaf {
+    position: absolute;
+    bottom: var(--space-4);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: auto;
+    color: var(--color-sage-soft);
+    opacity: 0.5;
+    z-index: 1;
+  }
+
+  @media (max-width: 880px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+    }
+    .hero-portrait {
+      order: -1;
+      justify-self: center;
+    }
+    .portrait-frame {
+      width: min(100%, 280px);
+    }
+    .hero-leaf {
+      display: none;
+    }
+  }
+</style>
