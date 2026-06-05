@@ -1,14 +1,18 @@
 ---
+import { Image } from 'astro:assets'
+import type { ImageMetadata } from 'astro'
 import SectionHeading from './SectionHeading.astro'
 
 interface Props {
   title: string
   tagline: string
   available: boolean
+  image?: ImageMetadata
+  imageAlt?: string
 }
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '')
-const { title, tagline, available } = Astro.props
+const { title, tagline, available, image, imageAlt = '' } = Astro.props
 ---
 
 <article class="service-detail">
@@ -32,6 +36,18 @@ const { title, tagline, available } = Astro.props
       lede={tagline}
       as="h1"
     />
+
+    {image && (
+      <figure class="service-photo">
+        <Image
+          src={image}
+          alt={imageAlt}
+          widths={[480, 800, 1200]}
+          sizes="(max-width: 720px) 100vw, 680px"
+          loading="lazy"
+        />
+      </figure>
+    )}
 
     {!available && (
       <div class="upcoming-note">
@@ -102,6 +118,21 @@ const { title, tagline, available } = Astro.props
 
   .back-link:hover svg {
     transform: translateX(-3px);
+  }
+
+  .service-photo {
+    margin: 0 0 var(--space-4);
+    aspect-ratio: 5 / 3;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .service-photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   .upcoming-note {

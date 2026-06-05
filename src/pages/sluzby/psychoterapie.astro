@@ -2,6 +2,7 @@
 import { getEntry, render } from 'astro:content'
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import ServiceDetail from '../../components/ServiceDetail.astro'
+import photo from '../../assets/psychoterapie.jpeg'
 
 const entry = await getEntry('sluzby', 'psychoterapie')
 if (!entry) throw new Error('Missing sluzby/psychoterapie content')
@@ -16,6 +17,8 @@ const { Content } = await render(entry)
     title={entry.data.title}
     tagline={entry.data.tagline}
     available={entry.data.available}
+    image={photo}
+    imageAlt="Jabloňové květy v jarním světle"
   >
     <Content />
   </ServiceDetail>

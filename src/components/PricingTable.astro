@@ -2,33 +2,13 @@
 const rows = [
   {
     typ: 'Individuální poradenství nebo psychoterapie',
-    misto: 'osobně nebo online',
     delka: '60 minut',
     cena: '1 100 Kč',
   },
   {
     typ: 'Individuální poradenství nebo psychoterapie',
-    misto: 'osobně nebo online',
     delka: '90 minut',
     cena: '1 600 Kč',
-  },
-  {
-    typ: 'Individuální nebo lesní terapie',
-    misto: 'Dobříkov u Chocně',
-    delka: '60 minut',
-    cena: '1 000 Kč',
-  },
-  {
-    typ: 'Individuální nebo lesní terapie',
-    misto: 'Dobříkov u Chocně',
-    delka: '90 minut',
-    cena: '1 500 Kč',
-  },
-  {
-    typ: 'Individuální nebo lesní terapie',
-    misto: 'Dobříkov u Chocně',
-    delka: '2 hodiny',
-    cena: '2 000 Kč',
   },
 ]
 ---
@@ -39,7 +19,6 @@ const rows = [
     <thead>
       <tr>
         <th scope="col">Typ konzultace</th>
-        <th scope="col">Místo</th>
         <th scope="col">Délka</th>
         <th scope="col" class="cena">Cena</th>
       </tr>
@@ -48,7 +27,6 @@ const rows = [
       {rows.map((row) => (
         <tr>
           <td>{row.typ}</td>
-          <td class="misto">{row.misto}</td>
           <td class="delka">{row.delka}</td>
           <td class="cena">{row.cena}</td>
         </tr>
@@ -95,13 +73,6 @@ const rows = [
   .pricing-table .delka {
     color: var(--color-mute);
     white-space: nowrap;
-  }
-
-  .pricing-table .misto {
-    color: var(--color-mute);
-    font-style: italic;
-    font-family: var(--font-display);
-    font-size: 1rem;
   }
 
   .pricing-table .cena {

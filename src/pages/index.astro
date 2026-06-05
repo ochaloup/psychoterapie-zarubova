@@ -36,9 +36,8 @@ const meetingPlaces = [
   <section class="section" id="sluzby">
     <div class="container">
       <SectionHeading
-        eyebrow="Co nabízím"
-        title="Tři cesty, jak spolu můžeme pracovat"
-        lede="Každá služba má svůj rytmus a důraz. Vyberte tu, která vás teď oslovuje — nebo si u prvního setkání domluvíme to, co vám bude nejvíc dávat smysl."
+        title="Co nabízím"
+        lede="Tři cesty, jak můžeme spolupracovat. Vyberte tu, která vás nyní nejvíc oslovuje. Na prvním setkání můžeme váš výběr doladit."
         align="center"
       />
 
@@ -60,8 +59,7 @@ const meetingPlaces = [
   <section class="section section--alt" id="setkani">
     <div class="container">
       <SectionHeading
-        eyebrow="Můžeme se setkat"
-        title="Kde a jak se vidíme"
+        title="Můžeme se setkat"
         align="center"
       />
 
@@ -154,16 +152,16 @@ const meetingPlaces = [
           </li>
           <li>
             <span class="contact-label">Kde mě najdete</span>
-            <span>
+            <a
+              href="https://mapy.cz/?q=Kosteln%C3%AD%2094%2C%20Pardubice"
+              target="_blank"
+              rel="noopener"
+            >
               Centrum Živa<br />
               Kostelní 94, Pardubice
-            </span>
+            </a>
           </li>
         </ul>
-
-        <p class="response-time">
-          <em>Ozvu se vám nazpět do 2 pracovních dnů.</em>
-        </p>
       </div>
 
       <div>
@@ -295,13 +293,6 @@ const meetingPlaces = [
   .contact-list a:hover {
     color: var(--color-terracotta-dark);
     border-bottom-color: var(--color-terracotta);
-  }
-
-  .response-time {
-    margin-top: var(--space-3);
-    color: var(--color-mute);
-    font-family: var(--font-display);
-    font-size: 1.05rem;
   }
 
   @media (max-width: 880px) {

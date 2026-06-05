@@ -1,20 +1,18 @@
 ---
-const base = import.meta.env.BASE_URL.replace(/\/$/, '')
+import { Image } from 'astro:assets'
+import portrait from '../assets/barbora-zarubova.jpeg'
 ---
 
 <section class="hero" id="vitejte">
   <div class="container hero-grid">
     <div class="hero-text fade-in">
       <span class="eyebrow">Mgr. Barbora Zárubová · Psychoterapeutka, psycholožka</span>
-      <h1>
-        Vítejte na cestě do svého nitra,<br />
-        <span class="hero-emphasis">které touží, abyste mu naslouchali.</span>
-      </h1>
+      <h1>Vítejte na cestě do svého nitra…</h1>
 
-      <p class="lede">
+      <p class="lede hero-emphasis">
         Klidný a bezpečný prostor pro ženy, rodiče i děti.
-        Setkat se můžeme osobně v&nbsp;Pardubicích, online,
-        na procházce nebo v&nbsp;přírodě u&nbsp;Chocně.
+        Setkat se můžeme osobně v&nbsp;Pardubicích, online
+        nebo v&nbsp;přírodě u&nbsp;Chocně.
       </p>
 
       <ul class="hero-offer">
@@ -47,13 +45,12 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '')
 
     <div class="hero-portrait fade-in">
       <div class="portrait-frame">
-        <img
-          src={`${base}/images/portrait.jpg`}
+        <Image
+          src={portrait}
           alt="Portrét Mgr. Barbory Zárubové"
-          width="640"
-          height="800"
+          widths={[480, 760, 1140]}
+          sizes="(max-width: 880px) 280px, 380px"
           loading="eager"
-          decoding="async"
         />
       </div>
       <span class="portrait-caption">Mgr. Barbora Zárubová</span>
@@ -121,9 +118,12 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '')
   }
 
   .hero-emphasis {
+    font-family: var(--font-display);
     font-style: italic;
     color: var(--color-sage);
     font-weight: 400;
+    font-size: 1.4rem;
+    line-height: 1.45;
   }
 
   .hero-offer {

@@ -2,35 +2,43 @@
 
 Every image used on the site is logged here with its source, photographer, and license. Update whenever an image is added, replaced, or removed.
 
+Source files as delivered by Barbora live in `images/` at the repo root; the copies actually used by the site live in `src/assets/` (optimized at build by `astro:assets`) and `public/images/` (og:image only).
+
 ## Portraits
 
-### `public/images/portrait.jpg`
-- **Source**: existing site at https://www.psychoterapie-zarubova.cz/pics/bara.jpg
-- **Subject**: Mgr. Barbora Zárubová
-- **Note**: reused from her previous website for v0.1. Original is small (350×262); a higher-resolution professional portrait will be commissioned and swapped in before v1.0.
+### `src/assets/barbora-zarubova.jpeg` (+ copy at `public/images/portrait.jpg` for og:image)
+- **Source**: provided by Barbora (2026-05-26), professional photo, 1600×1066
+- **Subject**: Mgr. Barbora Zárubová in a sunset field
+- **Used on**: homepage hero (CSS-cropped to 4:5), social-preview og:image
+- **Note**: replaced the low-res `bara.jpg` (350×262) reused from her previous website in v0.1.
 
-## Mood / background imagery
+## Service photos
 
-*Not yet populated.* For v0.1 the site relies on typography, color, and a single portrait. If a reviewer (Barbora or otherwise) feels a mood image is needed, source 3–5 from Unsplash matching:
+### `src/assets/psychoterapie.jpeg`
+- **Source**: provided by Barbora (2026-05-26), own photo, 651×869
+- **Subject**: apple blossom in spring light
+- **Used on**: `/sluzby/psychoterapie` banner
 
-- *forest light morning*
-- *linen warm texture*
-- *path through trees*
-- *hands ceramic mug*
-- *botanical line drawing*
+### `src/assets/rodicovske-poradenstvi.jpeg`
+- **Source**: provided by Barbora (2026-05-26), own photo, 1159×869
+- **Subject**: tree canopy with sunlight
+- **Used on**: `/sluzby/poradenstvi-pro-rodice` banner
 
-Avoid clichés (lotus flowers, mandalas, women-in-meditation-pose). For each image, append a row below with:
+### `src/assets/lesni-terapie.jpeg`
+- **Source**: provided by Barbora (2026-05-26), own photo, 651×869
+- **Subject**: forest path covered in autumn leaves
+- **Used on**: `/sluzby/lesni-terapie` banner
 
-```
-### public/images/<name>.jpg
-- Source URL: <unsplash.com/photos/...>
-- Photographer: <name + profile URL>
-- License: Unsplash License (https://unsplash.com/license)
-- Used on: <page / section>
-```
+## Logos
+
+### `src/assets/logo-cap.jpeg`
+- **Source**: provided by Barbora (2026-06-05), © Česká asociace pro psychoterapii
+- **Subject**: ČAP membership badge „Psychoterapeutka — řádná členka"
+- **License**: used as a membership mark with the association's standard permission for members
+- **Used on**: `/pribeh` below the story text, linked to https://czap.cz/
 
 ## Format conventions
 
-- Source files go in `public/images/`.
-- For raster images larger than ~50 KB, use Astro's `<Image>` component to generate AVIF + WebP variants at build time.
+- Site images live in `src/assets/` and render through `astro:assets` `<Image>` (build-time optimized variants).
+- `public/images/` holds only assets that need a stable public URL (og:image).
 - Use SVG for icons and decorative motifs (currently inline in components).

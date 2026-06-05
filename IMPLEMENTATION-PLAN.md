@@ -484,6 +484,61 @@ No remaining open questions. Proceed to §7 step 1 (scaffold Astro).
 - `IMPLEMENTATION-PLAN.md` — this file. v0.1 execution detail.
 - `V1.0-TODO.md` — ordered, verifiable v1.0 launch runbook.
 - `TODO.md` — original brief.
-- `webovky.pdf` — content source.
+- `inputs/webovky-v1.pdf` — original content source (was `webovky.pdf`).
+- `inputs/webovky-v2.pdf` — revised content from Barbora (2026-05-22), basis for v0.2.
 - `IMAGES.md` — created at step 13 of §7, tracks image provenance.
 - `README.md` — created at step 2 of §7, dev/build/deploy instructions.
+
+---
+
+## 14. v0.2 — Barbora's v1→v2 feedback
+
+Source: `inputs/webovky-v2.pdf` (highlighted edits + red notes) and her WhatsApp notes (2026-05-22). New assets supplied in `images/` at repo root: `barbora-zarubova.jpeg` (new portrait, 1600×1066), `logo-cap.jpeg` (ČAP member badge, 331×332), `psychoterapie.jpeg` (apple blossom, 651×869), `rodicovske-poradenstvi.jpeg` (tree canopy with sun, 1159×869), `lesni-terapie.jpeg` (forest path, 651×869).
+
+Image pipeline: content images move to `src/assets/` and render through `astro:assets` `<Image>` (sharp generates optimized variants at build). A downsized copy of the new portrait stays at `public/images/portrait.jpg` because `BaseLayout` uses it as the `og:image` (needs a plain public URL).
+
+### 14.1. Checklist
+
+**A. Hero (`src/components/Hero.astro`) — VÍTEJTE tweaks + new portrait**
+- [x] `<h1>` → „Vítejte na cestě do svého nitra…" (v2 drops „, které touží, abyste mu naslouchali").
+- [x] Emphasized lede per v2 verbatim: „Klidný a bezpečný prostor pro ženy, rodiče i děti. Setkat se můžeme osobně v Pardubicích, online nebo v přírodě u Chocně." (drops „na procházce").
+- [x] Offer bullets + closing line unchanged (identical v1 → v2).
+- [x] Swap portrait to `barbora-zarubova.jpeg` via `<Image>`; 4:5 frame kept, CSS `object-fit: cover` crops the landscape original (subject is centered, default position works).
+- [x] Refresh `public/images/portrait.jpg` (og:image) from the new photo.
+
+**B. Homepage „Co nabízím" section (`src/pages/index.astro`)**
+- [x] Per Bara's note („malý název zvětšila a ty 3 cesty dala do textu pod tím"): SectionHeading title → „Co nabízím", lede → „Tři cesty, jak můžeme spolupracovat. Vyberte tu, která vás nyní nejvíc oslovuje. Na prvním setkání můžeme váš výběr doladit."
+
+**C. Homepage „Můžeme se setkat" section**
+- [x] Per Bara's note („nechala bych jen to bez toho kde a jak se vidíme"): title → „Můžeme se setkat", drop „Kde a jak se vidíme". Place cards unchanged.
+
+**D. Ceník (`src/components/PricingTable.astro`)**
+- [x] Reduce to 2 rows: Individuální poradenství nebo psychoterapie — 60 minut / 1 100 Kč; 90 minut / 1 600 Kč.
+- [x] Drop the Dobříkov rows and the now-redundant „Místo" column.
+
+**E. Kontakt section (`src/pages/index.astro`)**
+- [x] Deduplicate „Ozvu se vám nazpět do 2 pracovních dnů." — keep it in the lede, remove the standalone `.response-time` paragraph.
+- [x] Bara's open note „odkaz na mapy.cz?": link the Centrum Živa address to mapy.cz.
+
+**F. Můj příběh (`src/content/pribeh/index.md` + `src/pages/pribeh.astro`)**
+Text re-copied from v2; actual diffs (v2 typos „psychoterapuetických", „5 let let" normalized):
+- [x] „jógy a tai-chi" → „jógy a taichi"; drop „šamanských" from the techniques list.
+- [x] „pětiletého psychoterapeutického výcviku" → „pětiletého akreditovaného psychoterapeutického výcviku".
+- [x] Dance paragraph ends „…zdroji ženské energie." (drop „, které může touto cestou očistit a oživit").
+- [x] ČAP badge below the story text (before the CV blocks): circular render of `logo-cap.jpeg`, linked to https://czap.cz/, alt „Psychoterapeutka — řádná členka České asociace pro psychoterapii".
+- [x] CV blocks (Vzdělání / Profesní zkušenosti) already match v2 — no change.
+
+**G. Service detail photos (`src/components/ServiceDetail.astro` + 3 pages)**
+- [x] New optional `image` prop on `ServiceDetail`; rendered as a soft-cropped banner figure between the heading and the prose (rounded corners, soft shadow, lazy-loaded `<Image>`).
+- [x] `psychoterapie` → apple blossom; `poradenstvi-pro-rodice` → tree canopy with sun; `lesni-terapie` → forest path.
+
+**H. Housekeeping**
+- [x] `IMAGES.md`: log all 5 new images (provided by Barbora; ČAP badge © Česká asociace pro psychoterapii, used as membership mark).
+- [x] Root `images/` dir holds the originals as delivered; `inputs/` (PDFs + notes) is temporary and will be removed by the owner.
+- [x] Verify: `pnpm check` 0 errors, `pnpm build` green, built HTML greps confirm all text changes, hero webp variants 10–58 kB (within §8.1 budget). Note: `sharp` added as a direct dependency — required by Astro 6 for `astro:assets` (previously only transitive, pnpm isolation hid it).
+
+### 14.2. Explicitly NOT in v0.2
+
+- Lesní terapie content — still „to ještě doplním" in v2, placeholder stays.
+- Service texts (psychoterapie, poradenství pro rodiče) — unchanged v1 → v2.
+- Obchodní podmínky — finalized separately (2026-06-05): legal additions (odstoupení § 1829, ADR/ČOI § 14 ZOS, non-VAT note), `draft: false`.
