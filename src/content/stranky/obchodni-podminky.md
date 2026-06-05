@@ -56,7 +56,7 @@ Objedná-li si klient termín konzultace tak, že se má uskutečnit ještě př
 
 ## 7. Příspěvky od zdravotních pojišťoven
 
-V rámci programu *Péče o duševní zdraví* lze čerpat příspěvek na psychoterapii od většiny zdravotních pojišťoven. Klient si o příspěvek žádá sám u své pojišťovny; poskytovatel nevystavuje žádné podklady určené k vyúčtování v rámci veřejného zdravotního pojištění.
+V rámci programu <a href="https://www.czap.cz/spoluprace-zp" target="_blank" rel="noopener noreferrer">*Péče o duševní zdraví*</a> lze čerpat příspěvek na psychoterapii od většiny zdravotních pojišťoven. Klient si o příspěvek žádá sám u své pojišťovny; poskytovatel nevystavuje žádné podklady určené k vyúčtování v rámci veřejného zdravotního pojištění.
 
 ## 8. Mlčenlivost a důvěrnost
 
@@ -65,7 +65,7 @@ Veškeré informace, které klient v rámci spolupráce sdělí, jsou považová
 - situace, kdy zákon ukládá poskytovateli oznamovací povinnost (např. bezprostřední ohrožení života),
 - pravidelné supervize, ve kterých je klient vždy plně anonymizován.
 
-Poskytovatel je členem [České asociace pro psychoterapii](https://czap.cz/) a ve své praxi ctí [Etický kodex ČAP](https://czap.cz/eticky-kodex/).
+Poskytovatel je členem <a href="https://czap.cz/" target="_blank" rel="noopener noreferrer">České asociace pro psychoterapii</a> a ve své praxi ctí <a href="https://www.czap.cz/ochrana-klientu" target="_blank" rel="noopener noreferrer">Etický kodex ČAP</a>.
 
 ## 9. Ochrana osobních údajů
 
@@ -79,7 +79,7 @@ Případné stížnosti a podněty na průběh spolupráce může klient zasíla
 
 ## 11. Mimosoudní řešení spotřebitelských sporů
 
-V případě sporu mezi klientem‑spotřebitelem a poskytovatelem, který se nepodaří vyřešit vzájemnou dohodou, je subjektem mimosoudního řešení spotřebitelských sporů dle § 14 zákona č. 634/1992 Sb., o ochraně spotřebitele, **Česká obchodní inspekce**, Ústřední inspektorát — oddělení ADR, Gorazdova 1969/24, 120 00 Praha 2, e‑mail: adr@coi.gov.cz, web: [coi.gov.cz/informace-o-adr](https://coi.gov.cz/informace-o-adr/).
+V případě sporu mezi klientem‑spotřebitelem a poskytovatelem, který se nepodaří vyřešit vzájemnou dohodou, je subjektem mimosoudního řešení spotřebitelských sporů dle § 14 zákona č. 634/1992 Sb., o ochraně spotřebitele, **Česká obchodní inspekce**, Ústřední inspektorát — oddělení ADR, Gorazdova 1969/24, 120 00 Praha 2, e‑mail: adr@coi.gov.cz, web: <a href="https://coi.gov.cz/informace-o-adr/" target="_blank" rel="noopener noreferrer">coi.gov.cz/informace-o-adr</a>.
 
 ## 12. Účinnost
 

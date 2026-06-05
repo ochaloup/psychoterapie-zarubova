@@ -18,4 +18,4 @@ Další mojí srdeční cestou je **cesta tance**. Od 15 let se věnuji břišn�
 
 Od roku 2012 pracuji jako **školní psycholožka**, kde se setkávám s mnoha příběhy dětí a rodičů. Mým záměrem je hledat cesty, aby dětem a rodičům bylo v jejich vztahu lépe a vnímali výchovu jako cestu sebepoznání a seberozvoje.
 
-Stále se vzdělávám a propojuji odborné znalosti s vlastními zkušenostmi. Jsem členem [České asociace pro psychoterapii](https://czap.cz/) a ve své praxi ctím [Etický kodex ČAP](https://czap.cz/eticky-kodex/).
+Stále se vzdělávám a propojuji odborné znalosti s vlastními zkušenostmi. Jsem členem <a href="https://czap.cz/" target="_blank" rel="noopener noreferrer">České asociace pro psychoterapii</a> a ve své praxi ctím <a href="https://www.czap.cz/ochrana-klientu" target="_blank" rel="noopener noreferrer">Etický kodex ČAP</a>.

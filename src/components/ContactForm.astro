@@ -1,10 +1,4 @@
----
-import StagingNotice from './StagingNotice.astro'
----
-
 <div class="contact-form-wrap">
-  <StagingNotice />
-
   <form class="contact-form" data-contact-form novalidate>
     <div class="field">
       <label for="cf-name">Jméno a příjmení <span aria-hidden="true">*</span></label>
@@ -82,14 +76,8 @@ import StagingNotice from './StagingNotice.astro'
   </form>
 
   <div class="contact-success" data-success hidden role="status" aria-live="polite">
-    <h3>Děkujeme za zprávu.</h3>
-    <p>
-      <em>
-        Tato verze stránek slouží k revizi designu — formulář bude aktivní po
-        oficiálním spuštění. Pro skutečný kontakt prosím využijte e‑mail nebo
-        telefon výše.
-      </em>
-    </p>
+    <h3>Děkuji za zprávu.</h3>
+    <p>Ozvu se vám nazpět do 2&nbsp;pracovních dnů.</p>
   </div>
 </div>
 

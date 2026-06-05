@@ -1,5 +1,5 @@
 ---
-type Props = {
+interface Props {
   eyebrow?: string
   title: string
   lede?: string
@@ -8,7 +8,7 @@ type Props = {
   id?: string
 }
 
-const { eyebrow, title, lede, align = 'left', as = 'h2', id } = Astro.props
+const { eyebrow, title, lede, align = 'left', as = 'h2', id } = Astro.props as Props
 const Tag = as
 ---
 
