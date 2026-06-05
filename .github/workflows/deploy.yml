@@ -35,6 +35,8 @@ jobs:
       - run: pnpm exec astro check
 
       - run: pnpm build
+        env:
+          PUBLIC_CONTACT_ENDPOINT: ${{ vars.PUBLIC_CONTACT_ENDPOINT }}
 
       - name: Stage dist for link check
         run: |

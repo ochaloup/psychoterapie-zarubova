@@ -1,0 +1,12 @@
+name = "psychoterapie-zarubova-contact"
+main = "src/index.ts"
+compatibility_date = "2026-06-01"
+
+[vars]
+ALLOWED_ORIGINS = "https://chalda.cz,https://ochaloup.github.io,https://psychoterapie-zarubova.cz,https://www.psychoterapie-zarubova.cz"
+CONTACT_TO_EMAIL = "barbora.zarubova@seznam.cz"
+CONTACT_FROM_EMAIL = "kontakt@psychoterapie-zarubova.cz"
+
+[[kv_namespaces]]
+binding = "RL"
+id = "REPLACE_AFTER_wrangler_kv_namespace_create"

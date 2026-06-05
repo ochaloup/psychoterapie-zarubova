@@ -25,6 +25,9 @@ pnpm-debug.log*
 !.vscode/extensions.json
 !.vscode/launch.json
 
+# cloudflare worker
+.wrangler/
+
 # misc
 *.log
 .cache/

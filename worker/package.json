@@ -1,0 +1,16 @@
+{
+  "name": "psychoterapie-zarubova-contact",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260512.0",
+    "typescript": "^6.0.3",
+    "wrangler": "^4.28.0"
+  }
+}

@@ -73,6 +73,12 @@
       <span class="submit-label">Odeslat zprávu</span>
       <span class="submit-spinner" aria-hidden="true"></span>
     </button>
+
+    <p class="form-error" data-form-error hidden role="alert">
+      Zprávu se teď nepodařilo odeslat. Napište mi prosím přímo na
+      <a href="mailto:barbora.zarubova@seznam.cz" target="_blank" rel="noopener noreferrer">barbora.zarubova@seznam.cz</a>
+      nebo zavolejte.
+    </p>
   </form>
 
   <div class="contact-success" data-success hidden role="status" aria-live="polite">
@@ -179,6 +185,22 @@
     max-width: none;
   }
 
+  .form-error {
+    margin: 0;
+    padding: var(--space-2);
+    border-radius: var(--radius-sm);
+    border-left: 3px solid var(--color-terracotta);
+    background: #fbf3ef;
+    color: var(--color-terracotta-dark);
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+
+  .form-error a {
+    color: inherit;
+    font-weight: 600;
+  }
+
   .honeypot {
     position: absolute;
     left: -9999px;
@@ -239,11 +261,14 @@
 </style>
 
 <script>
+  const ENDPOINT = import.meta.env.PUBLIC_CONTACT_ENDPOINT as string | undefined
+
   const form = document.querySelector<HTMLFormElement>('[data-contact-form]')
   const submit = document.querySelector<HTMLButtonElement>('[data-submit]')
   const successEl = document.querySelector<HTMLElement>('[data-success]')
+  const formErrorEl = document.querySelector<HTMLElement>('[data-form-error]')
 
-  if (form && submit && successEl) {
+  if (form && submit && successEl && formErrorEl) {
     const messages: Record<string, string> = {
       name: 'Prosím vyplňte své jméno.',
       email: 'Zadejte prosím platnou e‑mailovou adresu.',
@@ -300,11 +325,35 @@
 
       submit.dataset.loading = 'true'
       submit.disabled = true
+      formErrorEl.hidden = true
 
-      await new Promise((r) => setTimeout(r, 800))
+      let sent = false
+      if (ENDPOINT) {
+        try {
+          const res = await fetch(ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              name: data.get('name'),
+              email: data.get('email'),
+              phone: data.get('phone'),
+              message: data.get('message'),
+              hp: data.get('hp'),
+            }),
+          })
+          sent = res.ok
+        } catch {
+          sent = false
+        }
+      }
 
       submit.dataset.loading = 'false'
       submit.disabled = false
+
+      if (!sent) {
+        formErrorEl.hidden = false
+        return
+      }
 
       form.hidden = true
       successEl.hidden = false

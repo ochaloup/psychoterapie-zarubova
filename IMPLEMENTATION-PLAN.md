@@ -537,7 +537,23 @@ Text re-copied from v2; actual diffs (v2 typos „psychoterapuetických", „5 l
 - [x] Root `images/` dir holds the originals as delivered; `inputs/` (PDFs + notes) is temporary and will be removed by the owner.
 - [x] Verify: `pnpm check` 0 errors, `pnpm build` green, built HTML greps confirm all text changes, hero webp variants 10–58 kB (within §8.1 budget). Note: `sharp` added as a direct dependency — required by Astro 6 for `astro:assets` (previously only transitive, pnpm isolation hid it).
 
-### 14.2. Explicitly NOT in v0.2
+### 14.2. GitHub Pages / DNS state (verified 2026-06-06)
+
+Facts established via `gh api` + `dig`, relevant for the contact form and the v1.0 cutover:
+
+- `ochaloup.github.io` (user site) has custom domain **`chalda.cz`** (legacy branch build from `master`, cert valid for `chalda.cz` + `www.chalda.cz`).
+- GitHub Pages rule: a user-site custom domain applies to **all project sites** of the account. The staging build therefore actually serves at **`https://chalda.cz/psychoterapie-zarubova/`** — `https://ochaloup.github.io/psychoterapie-zarubova/` 301-redirects there.
+- Consequence for the Worker: browser `Origin` on staging is `https://chalda.cz` → included in `ALLOWED_ORIGINS` in `worker/wrangler.toml` (alongside the future production origins).
+- One account can hold both custom domains: at cutover, repo `psychoterapie-zarubova` gets its own custom domain `psychoterapie-zarubova.cz` and detaches from the `chalda.cz/...` path. `chalda.cz` stays untouched.
+- **Blocker noted 2026-06-06**: Ondra does not yet have access to the DNS administration of `psychoterapie-zarubova.cz` — all DNS steps (Resend SPF/DKIM records, cutover A/CNAME) wait until access is obtained.
+
+Pending quick fixes on the existing setup (GitHub UI / registrar, ~1 min each, not done yet):
+
+- [ ] Repo `ochaloup.github.io` → Settings → Pages → tick **Enforce HTTPS** (currently `https_enforced: false`; site reachable over plain HTTP).
+- [ ] `chalda.cz` DNS: add the missing 4th GitHub Pages A record `185.199.111.153` (only .108–.110 present).
+- [ ] GitHub account → Settings → Pages → **Verified domains**: verify `chalda.cz` (and `psychoterapie-zarubova.cz` once accessible).
+
+### 14.3. Explicitly NOT in v0.2
 
 - Lesní terapie content — still „to ještě doplním" in v2, placeholder stays.
 - Service texts (psychoterapie, poradenství pro rodiče) — unchanged v1 → v2.
