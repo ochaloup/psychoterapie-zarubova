@@ -547,11 +547,11 @@ Facts established via `gh api` + `dig`, relevant for the contact form and the v1
 - One account can hold both custom domains: at cutover, repo `psychoterapie-zarubova` gets its own custom domain `psychoterapie-zarubova.cz` and detaches from the `chalda.cz/...` path. `chalda.cz` stays untouched.
 - **Blocker noted 2026-06-06**: Ondra does not yet have access to the DNS administration of `psychoterapie-zarubova.cz` — all DNS steps (Resend SPF/DKIM records, cutover A/CNAME) wait until access is obtained.
 
-Pending quick fixes on the existing setup (GitHub UI / registrar, ~1 min each, not done yet):
+Quick fixes on the existing setup — **all done 2026-06-07** (verified via `gh api` + `dig` against authoritative NS):
 
-- [ ] Repo `ochaloup.github.io` → Settings → Pages → tick **Enforce HTTPS** (currently `https_enforced: false`; site reachable over plain HTTP).
-- [ ] `chalda.cz` DNS: add the missing 4th GitHub Pages A record `185.199.111.153` (only .108–.110 present).
-- [ ] GitHub account → Settings → Pages → **Verified domains**: verify `chalda.cz` (and `psychoterapie-zarubova.cz` once accessible).
+- [x] Repo `ochaloup.github.io` → Settings → Pages → **Enforce HTTPS** ticked.
+- [x] `chalda.cz` DNS: 4th GitHub Pages A record `185.199.111.153` added; also AAAA ×4 and apex SPF (`v=spf1 a mx include:gransy.com ~all`).
+- [x] GitHub account → Settings → Pages → **Verified domains**: `chalda.cz` verified. `psychoterapie-zarubova.cz` still waits for DNS access (see `DNS-RUNBOOK.md` Step 2).
 
 ### 14.3. Explicitly NOT in v0.2
 

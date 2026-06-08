@@ -568,6 +568,22 @@ Set the same variable in two places:
 - **(A) Stay on workers.dev URL** with in-Worker KV rate limit (code above) — no DNS migration needed. **Default.**
 - **(B) Move DNS to Cloudflare** to gain CDN, DDoS protection, free per-zone rate-limit, and clean `api.psychoterapie-zarubova.cz` URL — more setup, but the only way to get a branded API URL.
 
+### 7.8. Spam handling — what filters what
+
+Cloudflare itself only contributes **network-level DDoS protection** (automatic for every Worker on workers.dev). Its richer anti-bot features (WAF, Bot Fight Mode, zone rate limits) require DNS proxied through Cloudflare — not our setup (option A above).
+
+Actual form-spam filtering is the Worker code from §7.4:
+
+| Layer | Stops |
+|---|---|
+| Honeypot `hp` (silent drop) | dumb bots that fill every field |
+| KV rate limit 10/h/IP | flooding from one source |
+| Origin check | direct curl/script POSTs from outside the site |
+| Server-side validation | malformed/oversized payloads |
+| seznam.cz inbox filter | whatever still gets through (content-level) |
+
+If spam volume ever becomes a problem: add **Cloudflare Turnstile** (free, cookieless, GDPR-friendly CAPTCHA replacement; invisible for most humans) — one widget in `ContactForm.astro` + one verification call in the Worker. Works with the workers.dev setup, no DNS migration needed. Not added preemptively — honeypot + rate limit is typically enough at this traffic level.
+
 ---
 
 ## 8. Images
