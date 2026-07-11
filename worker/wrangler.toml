@@ -4,9 +4,11 @@ compatibility_date = "2026-06-01"
 
 [vars]
 ALLOWED_ORIGINS = "https://chalda.cz,https://ochaloup.github.io,https://psychoterapie-zarubova.cz,https://www.psychoterapie-zarubova.cz"
-CONTACT_TO_EMAIL = "barbora.zarubova@seznam.cz"
-CONTACT_FROM_EMAIL = "kontakt@psychoterapie-zarubova.cz"
+# CONTACT_TO_EMAIL = "barbora.zarubova@seznam.cz"
+# CONTACT_FROM_EMAIL = "kontakt@psychoterapie-zarubova.cz"
+CONTACT_FROM_EMAIL = "onboarding@resend.dev"
+CONTACT_TO_EMAIL = "o.chaloupka@email.cz"
 
 [[kv_namespaces]]
 binding = "RL"
-id = "REPLACE_AFTER_wrangler_kv_namespace_create"
+id = "e4d0df6f173f4062803175c520c11a1f"
