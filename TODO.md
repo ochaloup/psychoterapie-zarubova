@@ -29,7 +29,7 @@ Found during the 2026-06-06 review (`IMPLEMENTATION-PLAN.md` §14.2):
 
 - [x] Repo `ochaloup.github.io` → Settings → Pages → tick **Enforce HTTPS** — done 2026-06-07, verified `https_enforced: true`.
 - [x] Add missing A record `185.199.111.153` to `chalda.cz` DNS — done 2026-06-07; AAAA records + SPF (`v=spf1 a mx include:gransy.com ~all`, per subreg help) added too.
-- [x] GitHub account Settings → Pages → Verified domains → verify `chalda.cz` — done 2026-06-07 (`protected_domain_state: verified`). Still pending: add `psychoterapie-zarubova.cz` once DNS access exists (see `DNS-RUNBOOK.md` Step 2).
+- [x] GitHub account Settings → Pages → Verified domains → verify `chalda.cz` — done 2026-06-07 (`protected_domain_state: verified`). Still pending: add `psychoterapie-zarubova.cz` once DNS access exists (see `IMPLEMENTATION-PLAN.md` §16).
 
 > **DNS blocker:** Ondra does not yet administer DNS of `psychoterapie-zarubova.cz`. Phases 1 (Resend records) and 2 (cutover) are blocked on getting that access. The Worker + form (Phase 4) can be built and tested from staging (`https://chalda.cz/psychoterapie-zarubova/`) meanwhile — Resend can deliver to the account-owner address before domain verification.
 

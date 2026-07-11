@@ -2,7 +2,7 @@
 
 Personal website for Mgr. Barbora Zárubová — psychotherapy and psychological counselling.
 
-The production site is published at `https://psychoterapie-zarubova.cz/` via GitHub Pages. The contact form posts to a Cloudflare Worker (`worker/`) that relays through Resend. See `IMPLEMENTATION-PLAN.md` for scope history and `PLAN.md` for the architecture; `DNS-RUNBOOK.md` documents the domain/DNS setup.
+The production site is published at `https://psychoterapie-zarubova.cz/` via GitHub Pages. The contact form posts to a Cloudflare Worker (`worker/`) that relays through Resend. See `IMPLEMENTATION-PLAN.md` for scope history and the as-built launch setup (§16, incl. DNS), and `PLAN.md` for the architecture.
 
 ## Stack
 

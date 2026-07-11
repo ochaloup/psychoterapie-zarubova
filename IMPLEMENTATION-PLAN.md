@@ -552,7 +552,7 @@ Quick fixes on the existing setup — **all done 2026-06-07** (verified via `gh 
 
 - [x] Repo `ochaloup.github.io` → Settings → Pages → **Enforce HTTPS** ticked.
 - [x] `chalda.cz` DNS: 4th GitHub Pages A record `185.199.111.153` added; also AAAA ×4 and apex SPF (`v=spf1 a mx include:gransy.com ~all`).
-- [x] GitHub account → Settings → Pages → **Verified domains**: `chalda.cz` verified. `psychoterapie-zarubova.cz` still waits for DNS access (see `DNS-RUNBOOK.md` Step 2).
+- [x] GitHub account → Settings → Pages → **Verified domains**: `chalda.cz` verified. `psychoterapie-zarubova.cz` verified at launch (see §16.1/§16.3).
 
 ### 14.3. Explicitly NOT in v0.2
 
@@ -584,7 +584,7 @@ Small iteration on top of v0.2, from Ondra's review. No copy rewrites — only s
 - [x] `phone` is optional and sent through with the payload. Client-side it is validated to phone characters only (`/^\+?[0-9\s()/-]+$/` — digits, spaces, `+ - ( ) /`) when filled; the worker applies a defensive length cap (≤40) with no format check. Spec (§2, §8.6) matches the code.
 
 ### 15.5. DNS decision (research 2026-07-11)
-- Ondra now has DNS admin (zone is at **Hukot.net**). Confirmed Barbora uses **only `barbora.zarubova@seznam.cz`** — no `@psychoterapie-zarubova.cz` mailbox. So at cutover the Hukot MX + SPF can be dropped and webhosting+email cancelled together (domain+DNS kept). Recommended path: move NS to Cloudflare (free; already used for the Worker). Still gated on Barbora's v0.1 sign-off. Full record tables live in `DNS-RUNBOOK.md`.
+- Ondra now has DNS admin (zone is at **Hukot.net**). Confirmed Barbora uses **only `barbora.zarubova@seznam.cz`** — no `@psychoterapie-zarubova.cz` mailbox. So at cutover the Hukot MX + SPF can be dropped and webhosting+email cancelled together (domain+DNS kept). Recommended path at the time: move NS to Cloudflare. **Superseded — Path A (kept DNS at Hukot) was chosen at launch; see §16 for the as-built record tables.**
 
 ### 15.7. Email infrastructure — Cloudflare Worker deployed (2026-07-11)
 
@@ -595,8 +595,52 @@ Contact-form backend brought live (Phase 4 of `V1.0-TODO.md`), still in **smoke-
 - Worker `psychoterapie-zarubova-contact` deployed at `https://psychoterapie-zarubova-contact.ochaloup.workers.dev`. `RESEND_API_KEY` set as secret; KV namespace `RL` created (id in `SECRET.md`); account `workers.dev` subdomain registered as `ochaloup`.
 - Verified via curl: bad origin → 403, valid submit → 200 (Resend accepted), honeypot → 200 silent-drop. Rate-limit (429) test skipped.
 - **Smoke-test config in `worker/wrangler.toml`**: `CONTACT_FROM_EMAIL=onboarding@resend.dev`, `CONTACT_TO_EMAIL=o.chaloupka@email.cz` (production values commented out). Reason: `kontakt@psychoterapie-zarubova.cz` can't send until the Resend domain is verified.
-- **Remaining for production**: verify `psychoterapie-zarubova.cz` in Resend (add SPF/DKIM per `DNS-RUNBOOK.md` — now unblocked, §15.5) → flip `wrangler.toml` to production `from`/`to` → redeploy → set `PUBLIC_CONTACT_ENDPOINT` in `.env` + GitHub Actions variable → wire real `fetch()` into `ContactForm.astro`.
+- **Remaining for production** (all completed at launch — see §16): verify `psychoterapie-zarubova.cz` in Resend → flip `wrangler.toml` to production `from`/`to` → redeploy → set `PUBLIC_CONTACT_ENDPOINT` in `.env` + GitHub Actions variable → real `fetch()` in `ContactForm.astro`.
 
 ### 15.6. Explicitly NOT in v0.3
 - No homepage credentials strip (considered, deferred — kept the homepage minimal; only `/pribeh` reordered).
-- No production guards removed yet (noindex / robots `Disallow` / `base` path all stay — that's the v1.0 cutover, `V1.0-TODO.md`).
+- No production guards removed yet (noindex / robots `Disallow` / `base` path all stay — that's the v1.0 cutover, now done in §16).
+
+---
+
+## 16. Production launch — as-built setup (2026-07-11)
+
+Single source of truth for the live deployment (replaces the former `DNS-RUNBOOK.md`). Domain `psychoterapie-zarubova.cz`: site on GitHub Pages, email via Resend, contact-form backend on a Cloudflare Worker. **DNS decision: Path A — kept at Hukot, records edited in place.** (Cloudflare was set up for DNS then abandoned; it now hosts only the Worker. Reason: avoids the `.cz` NSSET nameserver change.)
+
+### 16.1. DNS — Hukot (`admin.hukot.net` → Domény, DNS)
+Nameservers unchanged: `ns1.hukot.cz`, `ns3.hukot.cz`, `ns2.securitynet.cz` (DNSSEC off). Final zone:
+
+| Type | Name | Value |
+|---|---|---|
+| A | @ (×4) | `185.199.108.153`, `.109.153`, `.110.153`, `.111.153` (GitHub Pages) |
+| CNAME | `www` | `ochaloup.github.io` |
+| CAA | @ | `0 issue "letsencrypt.org"` |
+| TXT | `_github-pages-challenge-ochaloup` | token from GitHub (Verified domains) |
+| TXT | `resend._domainkey` | `p=…` DKIM (from Resend) |
+| TXT | `send` | `v=spf1 include:amazonses.com ~all` (Resend SPF) |
+| MX | `send` | `feedback-smtp.eu-west-1.amazonses.com` (prio 10, Resend bounces) |
+| TXT | `_dmarc` | `v=DMARC1; p=none;` |
+
+Removed (old Hukot site/mail): 2× A (`46.36.36.153`, `176.102.65.65`), 2× AAAA, wildcard `*` CNAME, MX `mail.hukot.net` + `mx2.securitynet.cz`, SPF `v=spf1 a mx include:spf.hukot.net ~all`. No `@domain` mailbox (Barbora uses `barbora.zarubova@seznam.cz`). **Domain registration stays at Hukot; webhosting + e-mailové schránky to be cancelled** (keep the domain; never "Deaktivovat zónu"). Rollback = re-add the two old A records.
+
+### 16.2. Email — Resend
+Account `o.chaloupka@email.cz` (free). Domain **Verified** (DKIM + SPF green), region **Ireland (eu-west-1)**, sending enabled; records live in the Hukot zone (16.1). Sender `kontakt@psychoterapie-zarubova.cz` is a label only (no mailbox — replies go to the visitor via `reply_to`). Before verification Resend is in test mode: sends only to the account owner from `onboarding@resend.dev`.
+
+### 16.3. GitHub — Pages + Actions
+- Repo `ochaloup/psychoterapie-zarubova`. Pages Source = **GitHub Actions**; Custom domain `psychoterapie-zarubova.cz` (DNS check ✓); **Enforce HTTPS** ✓. Account → Verified domains includes it (challenge TXT in 16.1).
+- Actions **Variable** (not secret): `PUBLIC_CONTACT_ENDPOINT = https://psychoterapie-zarubova-contact.ochaloup.workers.dev`. Baked into the build; the form silently errors if unset. Set via `gh variable set PUBLIC_CONTACT_ENDPOINT --repo ochaloup/psychoterapie-zarubova --body "<url>"`.
+- `.github/workflows/deploy.yml` builds on push to `main`: astro check → build → lychee → deploy-pages.
+
+### 16.4. Contact-form backend — Cloudflare Worker
+- `psychoterapie-zarubova-contact.ochaloup.workers.dev`. KV namespace `RL` bound (id in gitignored `SECRET.md`); `RESEND_API_KEY` a wrangler secret.
+- `worker/wrangler.toml` vars: `ALLOWED_ORIGINS` = production domains only; `CONTACT_FROM_EMAIL=kontakt@psychoterapie-zarubova.cz`; `CONTACT_TO_EMAIL=barbora.zarubova@seznam.cz`. Any var change needs `wrangler deploy` to take effect.
+
+### 16.5. Site code cutover (done)
+`astro.config.mjs`: dropped `base`, set `site=https://psychoterapie-zarubova.cz`, added `@astrojs/sitemap`. Added `public/CNAME` (no trailing newline). `public/robots.txt` permissive + sitemap. Removed `noindex` meta; `og:image` made absolute.
+
+### 16.6. Gotchas (learned — replay checklist)
+- **lychee** needs `--root-dir <dist>` once `base` is gone, else root-relative links (`/pribeh`, `/assets/…`) fail the build → no deploy.
+- **Form silently errors** if `PUBLIC_CONTACT_ENDPOINT` is unset at build (needs both the GH Actions Variable and local `.env`).
+- **`ALLOWED_ORIGINS`** trimmed to production → `localhost:4321` submits get 403; re-add it temporarily to test the form from local dev.
+- **`public/CNAME`**: no trailing newline; never delete it (reverts the custom domain).
+- **Worker is verifiable by curl**: bad `Origin` → 403; valid `Origin` + `hp` set → 200 without sending (honeypot).

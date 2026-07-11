@@ -1,7 +1,7 @@
 ---
 title: "Ochrana osobních údajů"
 description: "Zásady zpracování osobních údajů (GDPR) — Mgr. Barbora Zárubová, psychoterapie a psychologické poradenství."
-draft: true
+draft: false
 updated: 2026-07-11
 ---
 
