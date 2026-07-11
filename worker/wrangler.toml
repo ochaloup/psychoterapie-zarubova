@@ -3,7 +3,7 @@ main = "src/index.ts"
 compatibility_date = "2026-06-01"
 
 [vars]
-ALLOWED_ORIGINS = "https://chalda.cz,https://ochaloup.github.io,https://psychoterapie-zarubova.cz,https://www.psychoterapie-zarubova.cz"
+ALLOWED_ORIGINS = "http://localhost:4321,https://chalda.cz,https://ochaloup.github.io,https://psychoterapie-zarubova.cz,https://www.psychoterapie-zarubova.cz"
 # CONTACT_TO_EMAIL = "barbora.zarubova@seznam.cz"
 # CONTACT_FROM_EMAIL = "kontakt@psychoterapie-zarubova.cz"
 CONTACT_FROM_EMAIL = "onboarding@resend.dev"

@@ -586,6 +586,17 @@ Small iteration on top of v0.2, from Ondra's review. No copy rewrites — only s
 ### 15.5. DNS decision (research 2026-07-11)
 - Ondra now has DNS admin (zone is at **Hukot.net**). Confirmed Barbora uses **only `barbora.zarubova@seznam.cz`** — no `@psychoterapie-zarubova.cz` mailbox. So at cutover the Hukot MX + SPF can be dropped and webhosting+email cancelled together (domain+DNS kept). Recommended path: move NS to Cloudflare (free; already used for the Worker). Still gated on Barbora's v0.1 sign-off. Full record tables live in `DNS-RUNBOOK.md`.
 
+### 15.7. Email infrastructure — Cloudflare Worker deployed (2026-07-11)
+
+Contact-form backend brought live (Phase 4 of `V1.0-TODO.md`), still in **smoke-test config**. Local setup details (logins, KV id, endpoint URL) recorded in gitignored `SECRET.md`.
+
+- Resend account created on `o.chaloupka@email.cz` (free tier); Sending-access API key, scope „All domains". Key stored only as a wrangler secret.
+- Cloudflare account via GitHub SSO; used **only** for the Worker + KV (no DNS zone here — decision 6A).
+- Worker `psychoterapie-zarubova-contact` deployed at `https://psychoterapie-zarubova-contact.ochaloup.workers.dev`. `RESEND_API_KEY` set as secret; KV namespace `RL` created (id in `SECRET.md`); account `workers.dev` subdomain registered as `ochaloup`.
+- Verified via curl: bad origin → 403, valid submit → 200 (Resend accepted), honeypot → 200 silent-drop. Rate-limit (429) test skipped.
+- **Smoke-test config in `worker/wrangler.toml`**: `CONTACT_FROM_EMAIL=onboarding@resend.dev`, `CONTACT_TO_EMAIL=o.chaloupka@email.cz` (production values commented out). Reason: `kontakt@psychoterapie-zarubova.cz` can't send until the Resend domain is verified.
+- **Remaining for production**: verify `psychoterapie-zarubova.cz` in Resend (add SPF/DKIM per `DNS-RUNBOOK.md` — now unblocked, §15.5) → flip `wrangler.toml` to production `from`/`to` → redeploy → set `PUBLIC_CONTACT_ENDPOINT` in `.env` + GitHub Actions variable → wire real `fetch()` into `ContactForm.astro`.
+
 ### 15.6. Explicitly NOT in v0.3
 - No homepage credentials strip (considered, deferred — kept the homepage minimal; only `/pribeh` reordered).
 - No production guards removed yet (noindex / robots `Disallow` / `base` path all stay — that's the v1.0 cutover, `V1.0-TODO.md`).
