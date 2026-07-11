@@ -55,7 +55,7 @@ The form is visually identical to the production version (so reviewers see exact
 
 Notice block uses a muted background and small italics, friendly but clear.
 
-**Implementation detail**: the form's HTML and validation logic should be **production-ready** — same field names (`name`, `email`, `message`, `hp` honeypot), same client-side validation. Only the `fetch()` call to the Worker is replaced by `await new Promise(r => setTimeout(r, 800))` + success state. When v1.0 ships, the only change is swapping the simulated promise for the real `fetch()`.
+**Implementation detail**: the form's HTML and validation logic should be **production-ready** — same field names (`name`, `email`, `phone`, `message`, `hp` honeypot), same client-side validation (`phone` is optional and unvalidated). Only the `fetch()` call to the Worker is replaced by `await new Promise(r => setTimeout(r, 800))` + success state. When v1.0 ships, the only change is swapping the simulated promise for the real `fetch()`.
 
 ---
 
@@ -296,6 +296,7 @@ Body text uses ink. Headings use sage or ink. Terracotta only as accent on large
 Fields:
 - `name` — required, 1–200 chars
 - `email` — required, max 320 chars, matches `/^[^\s@]+@[^\s@]+\.[^\s@]+$/`
+- `phone` — optional, not validated client-side; sent through with the payload. Worker applies only a defensive length cap (≤40 chars), never a format check.
 - `message` — required, 1–5000 chars
 - `hp` — honeypot, hidden, must be empty
 

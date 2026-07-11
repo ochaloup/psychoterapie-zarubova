@@ -517,6 +517,8 @@ export default {
 }
 ```
 
+> The illustrative source above shows only the required fields. The deployed worker (`worker/src/index.ts`, source of truth) also accepts an **optional `phone`** field: it is passed straight through into the email body and gets only a defensive length cap (≤40 chars), never a format check. `ALLOWED_ORIGIN` is likewise generalized there to a comma-separated `ALLOWED_ORIGINS` list (staging + production origins).
+
 Key security decisions baked in:
 - Strict origin equality check **and** explicit CORS header — both required, neither sufficient alone.
 - Honeypot field `hp` accepted silently (so bots don't learn they've been caught).
@@ -553,7 +555,7 @@ Client submit handler:
 fetch(import.meta.env.PUBLIC_CONTACT_ENDPOINT, {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ name, email, message, hp }),
+  body: JSON.stringify({ name, email, phone, message, hp }),
 })
 ```
 
