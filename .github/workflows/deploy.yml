@@ -38,15 +38,10 @@ jobs:
         env:
           PUBLIC_CONTACT_ENDPOINT: ${{ vars.PUBLIC_CONTACT_ENDPOINT }}
 
-      - name: Stage dist for link check
-        run: |
-          mkdir -p _check/psychoterapie-zarubova
-          cp -r dist/. _check/psychoterapie-zarubova/
-
       - name: Internal link check
         uses: lycheeverse/lychee-action@v2
         with:
-          args: --no-progress --offline --root-dir ${{ github.workspace }}/_check _check/psychoterapie-zarubova
+          args: --no-progress --offline ${{ github.workspace }}/dist
           fail: true
 
       - uses: actions/upload-pages-artifact@v3

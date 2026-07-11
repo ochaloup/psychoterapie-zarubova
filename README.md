@@ -2,7 +2,7 @@
 
 Personal website for Mgr. Barbora Zárubová — psychotherapy and psychological counselling.
 
-This repository hosts the **v0.1 staging build**: a fully designed, content-complete site published at `https://ochaloup.github.io/psychoterapie-zarubova/` for design and copy review. The contact form is intentionally mocked client-side. See `IMPLEMENTATION-PLAN.md` for the full v0.1 scope and `PLAN.md` for the architecture and v1.0 roadmap (domain cutover, working form, analytics).
+The production site is published at `https://psychoterapie-zarubova.cz/` via GitHub Pages. The contact form posts to a Cloudflare Worker (`worker/`) that relays through Resend. See `IMPLEMENTATION-PLAN.md` for scope history and `PLAN.md` for the architecture; `DNS-RUNBOOK.md` documents the domain/DNS setup.
 
 ## Stack
 
@@ -18,7 +18,7 @@ pnpm install
 pnpm dev
 ```
 
-The dev server runs at `http://localhost:4321/psychoterapie-zarubova/` (note the base path).
+The dev server runs at `http://localhost:4321/`.
 
 ## Useful scripts
 
@@ -45,16 +45,13 @@ src/
 public/
 ├── fonts/                 self-hosted woff2
 ├── images/                portrait, mood imagery
-└── robots.txt             blocks crawling for v0.1
+├── CNAME                  custom-domain marker for GitHub Pages
+└── robots.txt             permissive + sitemap reference
 ```
 
 ## Editing content
 
 Most prose lives as markdown in `src/content/`. Frontmatter is validated at build time against `src/content/config.ts`.
-
-## v0.1 notice
-
-The site shows a small banner above the contact form indicating this is a staging build. The form runs all client-side validation but does not send anything. Both will be removed in v1.0.
 
 ## Documentation
 
