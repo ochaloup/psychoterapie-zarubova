@@ -76,9 +76,41 @@ const experience = [
         as="h1"
       />
 
-      <div class="prose">
-        <Content />
-      </div>
+      <section class="cv-block cv-block--first">
+        <h2>Vzdělání a výcvik</h2>
+        <dl class="cv-list">
+          {education.map((item) => (
+            <div class="cv-item">
+              <dt>
+                <strong>{item.title}</strong>
+                <span class="cv-institution">{item.institution}</span>
+              </dt>
+              <dd>{item.years}</dd>
+            </div>
+          ))}
+        </dl>
+
+        <h3>Další kurzy a vzdělávání (výběr)</h3>
+        <p class="cv-courses">
+          Kurz <strong>Mindfulness</strong> (Mgr. Katarzyna Korda Jedzoková),
+          <strong>Sandtray</strong>: práce v psychoterapeutickém pískovišti (Mgr. Veronika Galusová),
+          <strong>Mentální jazyky</strong>: typologie osobnosti (MgA. Alexandra Polarczyk),
+          <strong>Psychosomatická konference Dítě 2025 Moc a nemoc</strong> (Mgr. Soňa Procházková, DiS.),
+          kurzy psychoterapeutické práce s emočním rozrušením, úzkostí, krizová intervence.
+        </p>
+      </section>
+
+      <section class="cv-block">
+        <h2>Profesní zkušenosti</h2>
+        <dl class="cv-list">
+          {experience.map((item) => (
+            <div class="cv-item">
+              <dt><strong>{item.title}</strong></dt>
+              <dd>{item.years}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
 
       <a
         class="cap-badge"
@@ -115,40 +147,11 @@ const experience = [
         <circle cx="60" cy="12" r="4" stroke="currentColor" stroke-width="1" />
       </svg>
 
-      <section class="cv-block">
-        <h2>Vzdělání a výcvik</h2>
-        <dl class="cv-list">
-          {education.map((item) => (
-            <div class="cv-item">
-              <dt>
-                <strong>{item.title}</strong>
-                <span class="cv-institution">{item.institution}</span>
-              </dt>
-              <dd>{item.years}</dd>
-            </div>
-          ))}
-        </dl>
-
-        <h3>Další kurzy a vzdělávání (výběr)</h3>
-        <p class="cv-courses">
-          Kurz <strong>Mindfulness</strong> (Mgr. Katarzyna Korda Jedzoková),
-          <strong>Sandtray</strong>: práce v psychoterapeutickém pískovišti (Mgr. Veronika Galusová),
-          <strong>Mentální jazyky</strong>: typologie osobnosti (MgA. Alexandra Polarczyk),
-          <strong>Psychosomatická konference Dítě 2025 Moc a nemoc</strong> (Mgr. Soňa Procházková, DiS.),
-          kurzy psychoterapeutické práce s emočním rozrušením, úzkostí, krizová intervence.
-        </p>
-      </section>
-
-      <section class="cv-block">
-        <h2>Profesní zkušenosti</h2>
-        <dl class="cv-list">
-          {experience.map((item) => (
-            <div class="cv-item">
-              <dt><strong>{item.title}</strong></dt>
-              <dd>{item.years}</dd>
-            </div>
-          ))}
-        </dl>
+      <section class="story-block">
+        <h2>Moje cesta</h2>
+        <div class="prose">
+          <Content />
+        </div>
       </section>
 
       <div class="service-cta-block">
@@ -205,9 +208,18 @@ const experience = [
     margin-top: var(--space-5);
   }
 
-  .cv-block h2 {
+  .cv-block--first {
+    margin-top: var(--space-4);
+  }
+
+  .cv-block h2,
+  .story-block h2 {
     color: var(--color-sage-dark);
     margin-bottom: var(--space-3);
+  }
+
+  .story-block {
+    margin-top: var(--space-4);
   }
 
   .cv-block h3 {

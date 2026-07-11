@@ -1,3 +1,7 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '')
+---
+
 <div class="contact-form-wrap">
   <form class="contact-form" data-contact-form novalidate>
     <div class="field">
@@ -66,7 +70,7 @@
     />
 
     <p class="consent">
-      Odesláním formuláře souhlasíte se zpracováním údajů za účelem sjednání konzultace.
+      Odesláním formuláře souhlasíte se <a href={`${base}/ochrana-osobnich-udaju`}>zpracováním osobních údajů</a> za účelem sjednání konzultace.
     </p>
 
     <button class="btn btn-primary" type="submit" data-submit>

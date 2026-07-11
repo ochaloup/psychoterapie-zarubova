@@ -559,3 +559,33 @@ Quick fixes on the existing setup — **all done 2026-06-07** (verified via `gh 
 - Lesní terapie content — still „to ještě doplním" in v2, placeholder stays.
 - Service texts (psychoterapie, poradenství pro rodiče) — unchanged v1 → v2.
 - Obchodní podmínky — finalized separately (2026-06-05): legal additions (odstoupení § 1829, ADR/ČOI § 14 ZOS, non-VAT note), `draft: false`.
+
+---
+
+## 15. v0.3 — framework bump + info-architecture tweaks (2026-07-11)
+
+Small iteration on top of v0.2, from Ondra's review. No copy rewrites — only structure, a new legal page, and a dependency upgrade.
+
+### 15.1. Astro 6 → 7 upgrade
+- [x] `astro` `^6.4.4` → `^7.0.7`, `@astrojs/check` bumped to latest. `pnpm exec astro check` 0 errors, `pnpm build` green, `astro:assets`/sharp pipeline unchanged.
+- [x] Verified the v7 breaking changes are no-ops here: stricter Rust compiler (markup already clean), Vite 8 (no custom Vite config), removed `@astrojs/db` + `astro:transitions` helpers + Container API (none used), Node ≥ 22.12 (already in `engines`).
+- Behaviour change to note: Astro 7 `astro dev` now runs as a **detached daemon** (`astro dev status` / `stop` / `logs`); it no longer holds the terminal.
+
+### 15.2. „Ochrana osobních údajů" page
+- [x] New `src/content/stranky/ochrana-osobnich-udaju.md` — GDPR privacy-policy draft, `draft: true` (shows the „Návrh" banner until Barbora reviews, same as `obchodni-podminky`). Covers správce, účel/právní základ, zpracovatelé (GitHub Pages, Cloudflare, Resend), cookies/analytika, doba uchování, práva subjektu + ÚOOÚ, účinnost.
+- [x] New `src/pages/ochrana-osobnich-udaju.astro` — mirrors `obchodni-podminky.astro` (no schema change; `stranky` collection already covers it).
+- [x] Footer „Informace" bar gets the third link (next to Obchodní podmínky).
+- [x] Contact-form consent line links „zpracováním osobních údajů" to the new page (`ContactForm.astro` gains a base-path frontmatter for the link).
+
+### 15.3. „Můj příběh" — surface credentials first (`src/pages/pribeh.astro`)
+- [x] Per Ondra („profesní věci tam má hrozně utopené — chci vidět zkušenosti, příběh je až druhá věc"): reordered so the CV blocks come **before** the personal story. New order: Vzdělání a výcvik → Profesní zkušenosti → ČAP badge → divider → „Moje cesta" (the `<Content />` story, now under an `h2`). Copy unchanged; reorder only.
+
+### 15.4. Contact-form phone field — spec reconciled
+- [x] `phone` is optional, sent through with the payload, and **not** validated client-side; the worker applies only a defensive length cap (≤40), never a format check. Code already did this; the written spec (§2, §8.6, `PLAN.md §7.4/§7.6`) was updated to match (was plan drift).
+
+### 15.5. DNS decision (research 2026-07-11)
+- Ondra now has DNS admin (zone is at **Hukot.net**). Confirmed Barbora uses **only `barbora.zarubova@seznam.cz`** — no `@psychoterapie-zarubova.cz` mailbox. So at cutover the Hukot MX + SPF can be dropped and webhosting+email cancelled together (domain+DNS kept). Recommended path: move NS to Cloudflare (free; already used for the Worker). Still gated on Barbora's v0.1 sign-off. Full record tables live in `DNS-RUNBOOK.md`.
+
+### 15.6. Explicitly NOT in v0.3
+- No homepage credentials strip (considered, deferred — kept the homepage minimal; only `/pribeh` reordered).
+- No production guards removed yet (noindex / robots `Disallow` / `base` path all stay — that's the v1.0 cutover, `V1.0-TODO.md`).
