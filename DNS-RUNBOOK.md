@@ -135,3 +135,51 @@ How multi-domain routing works: all domains point at the same DNS target; GitHub
 ## Rollback
 
 Restore the screenshotted A/CNAME records at Hukot. With 300 s TTLs, the old site is back within ~10 minutes. Resend/verification TXT records need no rollback — they are invisible to site traffic.
+
+
+## HUKOT DNS export
+
+$ORIGIN psychoterapie-zarubova.cz.
+$TTL 86400
+@                                3600  IN SOA   (
+                                                ns1.hukot.cz.   ; MNAME
+                                                hukot.hukot.cz. ; RNAME
+                                                1783779483      ; SERIAL
+                                                28800           ; REFRESH
+                                                7200            ; RETRY
+                                                604800          ; EXPIRE
+                                                1000            ; MINIMUM
+                                                )
+
+; NS RECORDS
+                                 86400 IN NS    ns1.hukot.cz.
+                                 86400 IN NS    ns2.securitynet.cz.
+                                 86400 IN NS    ns3.hukot.cz.
+
+; A RECORDS
+@                                3600  IN A     185.199.108.153
+@                                3600  IN A     185.199.109.153
+@                                3600  IN A     185.199.110.153
+@                                3600  IN A     185.199.111.153
+
+; CNAME RECORDS
+www                              3600  IN CNAME ochaloup.github.io.
+
+; MX RECORDS
+send                             86400 IN MX    10 feedback-smtp.eu-west-1.amazonses.com.
+
+; TXT RECORDS
+_dmarc                           86400 IN TXT   "v=DMARC1; p=none;"
+_github-pages-challenge-ochaloup 86400 IN TXT   "9abb5a47389d7c108330b6c2afebd4"
+resend._domainkey                86400 IN TXT   ( 
+                                                  "p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQ"
+                                                  "CmxBqNFfrA8u9Tf3Hcw9MvG9DxZFQXy3F8W6ioLk"
+                                                  "2NSKGAsWX0XUh6FQS/Ezg/OiMEGxiKUpsjNtoqmG"
+                                                  "HovNRDRjUCuVXCf8DGges5vTpET42iMb/QJv2J9h"
+                                                  "oq/FQ3IiCbc9Re7Qs9drZQXGbeUAjJbbp8Lb4M9e"
+                                                  "qS2MFNX5S4bQIDAQAB"
+                                                )
+send                             86400 IN TXT   "v=spf1 include:amazonses.com ~all"
+
+; CAA RECORDS
+@                                86400 IN CAA   0 issue "letsencrypt.org"

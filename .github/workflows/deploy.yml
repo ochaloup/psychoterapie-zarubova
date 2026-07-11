@@ -41,7 +41,7 @@ jobs:
       - name: Internal link check
         uses: lycheeverse/lychee-action@v2
         with:
-          args: --no-progress --offline ${{ github.workspace }}/dist
+          args: --no-progress --offline --root-dir ${{ github.workspace }}/dist ${{ github.workspace }}/dist
           fail: true
 
       - uses: actions/upload-pages-artifact@v3
