@@ -76,7 +76,7 @@ const fullTitle = title.includes('Barbora Zárubová')
     {import.meta.env.PUBLIC_CF_BEACON_TOKEN && (
       <script
         is:inline
-        defer
+        type="module"
         src="https://static.cloudflareinsights.com/beacon.min.js"
         data-cf-beacon={`{"token": "${import.meta.env.PUBLIC_CF_BEACON_TOKEN}"}`}
       />
