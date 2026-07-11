@@ -55,7 +55,7 @@ The form is visually identical to the production version (so reviewers see exact
 
 Notice block uses a muted background and small italics, friendly but clear.
 
-**Implementation detail**: the form's HTML and validation logic should be **production-ready** — same field names (`name`, `email`, `phone`, `message`, `hp` honeypot), same client-side validation (`phone` is optional and unvalidated). Only the `fetch()` call to the Worker is replaced by `await new Promise(r => setTimeout(r, 800))` + success state. When v1.0 ships, the only change is swapping the simulated promise for the real `fetch()`.
+**Implementation detail**: the form's HTML and validation logic should be **production-ready** — same field names (`name`, `email`, `phone`, `message`, `hp` honeypot), same client-side validation (`phone` is optional; if filled it must contain only phone characters). Only the `fetch()` call to the Worker is replaced by `await new Promise(r => setTimeout(r, 800))` + success state. When v1.0 ships, the only change is swapping the simulated promise for the real `fetch()`.
 
 ---
 
@@ -296,7 +296,7 @@ Body text uses ink. Headings use sage or ink. Terracotta only as accent on large
 Fields:
 - `name` — required, 1–200 chars
 - `email` — required, max 320 chars, matches `/^[^\s@]+@[^\s@]+\.[^\s@]+$/`
-- `phone` — optional, not validated client-side; sent through with the payload. Worker applies only a defensive length cap (≤40 chars), never a format check.
+- `phone` — optional; if filled, validated client-side to phone characters only (`/^\+?[0-9\s()/-]+$/` — digits, spaces, `+ - ( ) /`). Sent through with the payload. Worker applies a defensive length cap (≤40 chars) but no format check.
 - `message` — required, 1–5000 chars
 - `hp` — honeypot, hidden, must be empty
 
@@ -581,7 +581,7 @@ Small iteration on top of v0.2, from Ondra's review. No copy rewrites — only s
 - [x] Per Ondra („profesní věci tam má hrozně utopené — chci vidět zkušenosti, příběh je až druhá věc"): reordered so the CV blocks come **before** the personal story. New order: Vzdělání a výcvik → Profesní zkušenosti → ČAP badge → divider → „Moje cesta" (the `<Content />` story, now under an `h2`). Copy unchanged; reorder only.
 
 ### 15.4. Contact-form phone field — spec reconciled
-- [x] `phone` is optional, sent through with the payload, and **not** validated client-side; the worker applies only a defensive length cap (≤40), never a format check. Code already did this; the written spec (§2, §8.6, `PLAN.md §7.4/§7.6`) was updated to match (was plan drift).
+- [x] `phone` is optional and sent through with the payload. Client-side it is validated to phone characters only (`/^\+?[0-9\s()/-]+$/` — digits, spaces, `+ - ( ) /`) when filled; the worker applies a defensive length cap (≤40) with no format check. Spec (§2, §8.6) matches the code.
 
 ### 15.5. DNS decision (research 2026-07-11)
 - Ondra now has DNS admin (zone is at **Hukot.net**). Confirmed Barbora uses **only `barbora.zarubova@seznam.cz`** — no `@psychoterapie-zarubova.cz` mailbox. So at cutover the Hukot MX + SPF can be dropped and webhosting+email cancelled together (domain+DNS kept). Recommended path: move NS to Cloudflare (free; already used for the Worker). Still gated on Barbora's v0.1 sign-off. Full record tables live in `DNS-RUNBOOK.md`.

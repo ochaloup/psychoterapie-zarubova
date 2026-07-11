@@ -361,6 +361,9 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '')
       }
     }
 
+    const FIELDS = ['name', 'email', 'phone', 'message']
+    const clearErrors = () => FIELDS.forEach((f) => setError(f, ''))
+
     const validate = (data: FormData): Record<string, string> => {
       const errors: Record<string, string> = {}
       const name = (data.get('name') as string | null)?.trim() ?? ''
@@ -381,7 +384,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '')
       event.preventDefault()
       const data = new FormData(form)
 
-      ;['name', 'email', 'phone', 'message'].forEach((f) => setError(f, ''))
+      clearErrors()
 
       const hp = (data.get('hp') as string | null) ?? ''
       if (hp.length > 0) {
@@ -438,7 +441,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '')
 
     resetBtn?.addEventListener('click', () => {
       form.reset()
-      ;['name', 'email', 'phone', 'message'].forEach((f) => setError(f, ''))
+      clearErrors()
       formErrorEl.hidden = true
       successEl.hidden = true
       form.hidden = false

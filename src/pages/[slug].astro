@@ -1,19 +1,19 @@
 ---
-import { getEntry, render } from 'astro:content'
+import { getCollection, render } from 'astro:content'
 import BaseLayout from '../layouts/BaseLayout.astro'
 import SectionHeading from '../components/SectionHeading.astro'
 
-const base = import.meta.env.BASE_URL.replace(/\/$/, '')
+export async function getStaticPaths() {
+  const pages = await getCollection('stranky')
+  return pages.map((entry) => ({ params: { slug: entry.id }, props: { entry } }))
+}
 
-const entry = await getEntry('stranky', 'obchodni-podminky')
-if (!entry) throw new Error('Missing stranky/obchodni-podminky content')
+const base = import.meta.env.BASE_URL.replace(/\/$/, '')
+const { entry } = Astro.props
 const { Content } = await render(entry)
 ---
 
-<BaseLayout
-  title="Obchodní podmínky"
-  description={entry.data.description}
->
+<BaseLayout title={entry.data.title} description={entry.data.description}>
   <article class="obp">
     <div class="container-narrow">
       <a class="back-link" href={`${base}/`}>
@@ -31,7 +31,7 @@ const { Content } = await render(entry)
 
       <SectionHeading
         eyebrow="Informace"
-        title="Obchodní podmínky"
+        title={entry.data.title}
         as="h1"
       />
 
