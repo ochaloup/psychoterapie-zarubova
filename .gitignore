@@ -31,3 +31,6 @@ pnpm-debug.log*
 # misc
 *.log
 .cache/
+
+# local setup notes (accounts, endpoints — never commit)
+SECRET.md
