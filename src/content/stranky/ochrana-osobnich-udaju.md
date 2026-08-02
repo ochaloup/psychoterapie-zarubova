@@ -2,14 +2,14 @@
 title: "Ochrana osobních údajů"
 description: "Zásady zpracování osobních údajů (GDPR) — Mgr. Barbora Zárubová, psychoterapie a psychologické poradenství."
 draft: false
-updated: 2026-07-11
+updated: 2026-08-02
 ---
 
 Tyto zásady popisují, jaké osobní údaje zpracovávám, za jakým účelem a jaká máte v souvislosti s jejich zpracováním práva. Zpracování se řídí nařízením GDPR (EU 2016/679) a zákonem č. 110/2019 Sb., o zpracování osobních údajů.
 
 ## 1. Správce osobních údajů
 
-Správcem je **Mgr. Barbora Zárubová**, IČO: 87665565, místo poskytování služeb: Centrum Živa, Kostelní 94, Pardubice.
+Správcem je **Mgr. Barbora Zárubová**, IČO: 87665565, místo poskytování služeb: Terapeutický prostor Mýtina, Bratranců Veverkových 2717, Pardubice.
 
 Kontakt ve věcech ochrany údajů: barbora.zarubova@seznam.cz, telefon: +420 608 879 165.
 

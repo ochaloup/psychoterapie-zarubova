@@ -644,3 +644,34 @@ Account `o.chaloupka@email.cz` (free). Domain **Verified** (DKIM + SPF green), r
 - **`ALLOWED_ORIGINS`** trimmed to production → `localhost:4321` submits get 403; re-add it temporarily to test the form from local dev.
 - **`public/CNAME`**: no trailing newline; never delete it (reverts the custom domain).
 - **Worker is verifiable by curl**: bad `Origin` → 403; valid `Origin` + `hp` set → 200 without sending (honeypot).
+
+---
+
+## 17. v0.4 — copy round 2 + venue move (2026-08-02)
+
+Barbora's feedback on the live site. Content and copy only — no structural or dependency changes. `astro check` 0 errors, `pnpm build` green.
+
+### 17.1. Venue change — Centrum Živa → Terapeutický prostor Mýtina
+New address `Terapeutický prostor Mýtina, Bratranců Veverkových 2717, Pardubice`; map link `https://mapy.com/s/lecozozapo` (supplied by Ondra — the old `mapy.com/s/mabudevahu` pinned Centrum Živa and could not be regenerated).
+
+- [x] Changed in **all six** places: homepage „Můžeme se setkat" card + contact block (`src/pages/index.astro`), footer (`Footer.astro`), JSON-LD `streetAddress` (`BaseLayout.astro`), `obchodni-podminky.md` §1, `ochrana-osobnich-udaju.md` §1.
+- [x] Verified against `dist/`: no `Kostelní` / `Živa` / `mabudevahu` anywhere; new address 4× on the homepage, 2× on `/pribeh`, 3× on each legal page (JSON-LD + footer + body).
+- [x] `updated:` bumped to `2026-08-02` in both `stranky` markdowns. Schema-only field, never rendered — note it no longer marks Barbora's 2026-06-05 sign-off of the obchodní podmínky.
+
+### 17.2. Homepage hero (`src/components/Hero.astro`)
+- [x] Lede replaced: „Klidný a bezpečný prostor pro ženy, rodiče i děti…" → „Pomohu vám najít cestu zpátky k sobě a poléčit tak svou duši. Není potřeba být na vše sami. Pomoc a oporu někdy každý potřebujeme."
+- [x] New `.hero-offer-lead` line „Naleznete u mě:" introducing the bullet list; spacing retuned (`.hero-emphasis` bottom margin space-4 → space-3, list top margin space-3 → space-2) so lede + lead-in + list read as one block.
+- [x] „Uvolnění" bullet gains „zahlcení": *když cítíte napětí, zahlcení nebo dlouhodobý stres*.
+- Page meta description left unchanged — still accurate (Walk & Talk stays, see 17.5).
+
+### 17.3. „Můj příběh"
+- [x] ČAP badge gets a visible caption „Členka České asociace pro psychoterapii" (`src/pages/pribeh.astro`). Badge + caption wrapped in a new `.cap-block`; the circular `overflow: hidden` on `.cap-badge` would have clipped text placed inside the link.
+- [x] Dance paragraph rewritten (`src/content/pribeh/index.md`) — new ending emphasises psychohygiena and reconnecting to one's source of energy. `**cesta tance**` emphasis kept.
+
+### 17.4. Ceník — new „Ochrana osobních údajů" tile (`src/pages/index.astro`)
+- [x] Fourth tile in `.terms-grid`: GDPR statement + the supervision/anonymity note. The grid now holds 4 tiles → clean 2×2 at `--measure` width (was 3 with one orphan).
+- [x] Law citation changed from Barbora's „zákon č. 101/2000 Sb." to „nařízení GDPR a zákon č. 110/2019 Sb." — 101/2000 was repealed in 2019, and `ochrana-osobnich-udaju.md` already cites the current one. Agreed with Ondra 2026-08-02.
+- [x] Tile links on to `/ochrana-osobnich-udaju`; without it the paragraph is a dead end for a visitor who wants the detail.
+
+### 17.5. Deferred
+- **Walk & Talk** — Barbora asked whether the offering is getting crowded. Recommendation on record: it is a *form* of therapy rather than a fourth service, so folding it into the „Osobně v Pardubicích" card would take „Můžeme se setkat" from 4 cards to 3 while keeping the option; mentions in `sluzby/psychoterapie.md` and `obchodni-podminky.md` §2 would stay. **No change made — decision postponed.**

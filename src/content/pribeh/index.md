@@ -14,7 +14,7 @@ V mém případě však trval výcvik více než 5 let, protože jsem se během 
 
 V nové roli matky se mi začaly objevovat nová témata, která mě vedla k tomu, abych více prozkoumávala a přijímala ženský princip v sobě. To mě zavedlo **k výcviku průvodkyně ženskými kruhy a přechodovými ženskými rituály** a následně jsem je začala tvořit a facilitovat. Dává mi velký smysl tvořit pro ženy bezpečný a podpůrný prostor, ve kterém mohou sdílet a inspirovat se. Takový prostor tvořím i pro maminky a dcery a maminky a syny, aby zažily referenční bod, ke kterému se mohou vztahovat v obdobích vzdalování a emočních bouří.
 
-Další mojí srdeční cestou je **cesta tance**. Od 15 let se věnuji břišnímu tanci a od 19 let jej lektoruji. Cesta břišního tance mě zavedla k tanci prožitkovému, kde provázím ženy, aby se skrze tělo a pohyb vnímaly a projevily, tak jak si často nedopřejí. Je to také cesta ženy ke svému lůnu, zdroji ženské energie.
+Další mojí srdeční cestou je **cesta tance**. Od 15 let se věnuji břišnímu tanci a od 19 let jej lektoruji. Cesta břišního tance mě zavedla k tanci prožitkovému, kde provázím ženy, aby se skrze tělo a pohyb uvolnily a vnímaly. Je to velmi přirozený a efektivní způsob psychohygieny a napojení na svůj zdroj energie.
 
 Od roku 2012 pracuji jako **školní psycholožka**, kde se setkávám s mnoha příběhy dětí a rodičů. Mým záměrem je hledat cesty, aby dětem a rodičům bylo v jejich vztahu lépe a vnímali výchovu jako cestu sebepoznání a seberozvoje.
 

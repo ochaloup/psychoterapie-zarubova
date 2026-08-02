@@ -12,10 +12,11 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '')
       <h1>Vítejte na cestě do svého nitra…</h1>
 
       <p class="lede hero-emphasis">
-        Klidný a bezpečný prostor pro ženy, rodiče i děti.
-        Setkat se můžeme osobně v&nbsp;Pardubicích, online
-        nebo v&nbsp;přírodě u&nbsp;Chocně.
+        Pomohu vám najít cestu zpátky k&nbsp;sobě a&nbsp;poléčit tak svou duši.
+        Není potřeba být na vše sami. Pomoc a&nbsp;oporu někdy každý potřebujeme.
       </p>
+
+      <p class="hero-offer-lead">Naleznete u&nbsp;mě:</p>
 
       <ul class="hero-offer">
         <li>
@@ -25,7 +26,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '')
           <strong>Pochopení</strong>, pokud si přejete mluvit o&nbsp;tom, co cítíte a co prožíváte.
         </li>
         <li>
-          <strong>Uvolnění</strong>, když cítíte napětí a&nbsp;dlouhodobý stres.
+          <strong>Uvolnění</strong>, když cítíte napětí, zahlcení nebo dlouhodobý stres.
         </li>
         <li>
           <strong>Podporu a zorientování</strong> v&nbsp;tíživé situaci.
@@ -127,12 +128,17 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '')
     font-weight: 400;
     font-size: 1.4rem;
     line-height: 1.45;
+    margin-bottom: var(--space-3);
+  }
+
+  .hero-offer-lead {
+    margin-bottom: 0;
   }
 
   .hero-offer {
     list-style: none;
     padding: 0;
-    margin: var(--space-3) 0 var(--space-4);
+    margin: var(--space-2) 0 var(--space-4);
     display: grid;
     gap: 0.55rem;
     border-left: 1px solid var(--color-sage-soft);

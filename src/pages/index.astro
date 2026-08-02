@@ -14,7 +14,10 @@ const services = (await getCollection('sluzby')).sort(
 )
 
 const meetingPlaces = [
-  { label: 'Osobně v Pardubicích', detail: 'v Centru Živa, Kostelní 94' },
+  {
+    label: 'Osobně v Pardubicích',
+    detail: 'v Terapeutickém prostoru Mýtina, Bratranců Veverkových 2717',
+  },
   { label: 'Online', detail: 'přes Google Meet' },
   {
     label: 'Walk & Talk',
@@ -116,6 +119,16 @@ const meetingPlaces = [
             Neposkytuji zdravotní služby dle zákona č.&nbsp;372/2011 Sb. Nejsem lékař a&nbsp;neprovádím lékařskou diagnostiku ani léčbu.
           </p>
         </div>
+
+        <div>
+          <h3>Ochrana osobních údajů</h3>
+          <p>
+            Veškeré mnou evidované informace se řídí nařízením GDPR a&nbsp;zákonem č.&nbsp;110/2019 Sb., o&nbsp;zpracování osobních údajů. Podrobnosti najdete v&nbsp;<a href={`${base}/ochrana-osobnich-udaju`}>zásadách ochrany osobních údajů</a>.
+          </p>
+          <p>
+            Pro zvýšení kvality mých odborných služeb je moje práce pravidelně <strong>supervidována</strong>. V&nbsp;supervizi si vyhrazuji právo diskutovat průběh terapie, klient zůstává vždy anonymní.
+          </p>
+        </div>
       </div>
     </div>
   </section>
@@ -147,12 +160,12 @@ const meetingPlaces = [
           <li>
             <span class="contact-label">Kde mě najdete</span>
             <a
-              href="https://mapy.com/s/mabudevahu"
+              href="https://mapy.com/s/lecozozapo"
               target="_blank"
               rel="noopener noreferrer"
             >
-              Centrum Živa<br />
-              Kostelní 94, Pardubice
+              Terapeutický prostor Mýtina<br />
+              Bratranců Veverkových 2717, Pardubice
             </a>
           </li>
         </ul>

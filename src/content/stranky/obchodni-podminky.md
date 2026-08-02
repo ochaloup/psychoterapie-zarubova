@@ -2,12 +2,12 @@
 title: "Obchodní podmínky"
 description: "Obchodní podmínky pro poskytování psychoterapie a psychologického poradenství — Mgr. Barbora Zárubová."
 draft: false
-updated: 2026-06-05
+updated: 2026-08-02
 ---
 
 ## 1. Poskytovatel služeb
 
-Mgr. Barbora Zárubová, IČO: 87665565, místo poskytování služeb: Centrum Živa, Kostelní 94, Pardubice, případně Dobříkov u Chocně nebo online prostředí.
+Mgr. Barbora Zárubová, IČO: 87665565, místo poskytování služeb: Terapeutický prostor Mýtina, Bratranců Veverkových 2717, Pardubice, případně Dobříkov u Chocně nebo online prostředí.
 
 Kontaktní e‑mail: barbora.zarubova@seznam.cz, telefon: +420 608 879 165.
 
