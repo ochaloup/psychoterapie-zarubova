@@ -656,6 +656,8 @@ New address `Terapeutický prostor Mýtina, Bratranců Veverkových 2717, Pardub
 
 - [x] Changed in **all six** places: homepage „Můžeme se setkat" card + contact block (`src/pages/index.astro`), footer (`Footer.astro`), JSON-LD `streetAddress` (`BaseLayout.astro`), `obchodni-podminky.md` §1, `ochrana-osobnich-udaju.md` §1.
 - [x] Verified against `dist/`: no `Kostelní` / `Živa` / `mabudevahu` anywhere; new address 4× on the homepage, 2× on `/pribeh`, 3× on each legal page (JSON-LD + footer + body).
+- [x] The „Můžeme se setkat" card address is a link to the same pin (new tab), like the contact block and footer. `meetingPlaces` gained an optional `href`; the detail copy dropped its leading „v " so the link text reads as a bare address.
+- [x] That link is styled to stay indistinguishable from the surrounding card text (`color: inherit`, `text-decoration: none`) — per Ondra, the global underline was too loud inside a quiet card. Affordance is the pointer cursor plus a terracotta hover; no underline in any state. Keyboard focus ring from the global `a:focus-visible` is untouched.
 - [x] `updated:` bumped to `2026-08-02` in both `stranky` markdowns. Schema-only field, never rendered — note it no longer marks Barbora's 2026-06-05 sign-off of the obchodní podmínky.
 
 ### 17.2. Homepage hero (`src/components/Hero.astro`)

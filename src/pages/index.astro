@@ -13,10 +13,11 @@ const services = (await getCollection('sluzby')).sort(
   (a, b) => a.data.order - b.data.order,
 )
 
-const meetingPlaces = [
+const meetingPlaces: { label: string; detail: string; href?: string }[] = [
   {
     label: 'Osobně v Pardubicích',
-    detail: 'v Terapeutickém prostoru Mýtina, Bratranců Veverkových 2717',
+    detail: 'Terapeutický prostor Mýtina, Bratranců Veverkových 2717',
+    href: 'https://mapy.com/s/lecozozapo',
   },
   { label: 'Online', detail: 'přes Google Meet' },
   {
@@ -70,7 +71,15 @@ const meetingPlaces = [
         {meetingPlaces.map((place) => (
           <li>
             <strong>{place.label}</strong>
-            <span>{place.detail}</span>
+            <span>
+              {place.href ? (
+                <a href={place.href} target="_blank" rel="noopener noreferrer">
+                  {place.detail}
+                </a>
+              ) : (
+                place.detail
+              )}
+            </span>
           </li>
         ))}
       </ul>
@@ -221,6 +230,15 @@ const meetingPlaces = [
   .meeting-places span {
     color: var(--color-mute);
     font-size: 0.95rem;
+  }
+
+  .meeting-places a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .meeting-places a:hover {
+    color: var(--color-terracotta-dark);
   }
 
   .terms-grid {
